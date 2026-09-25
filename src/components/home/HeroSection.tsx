@@ -1,24 +1,30 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ShieldCheck, ArrowRight, MessageCircle, Phone, Sparkles, Zap, ChevronRight } from "lucide-react";
+import { ShieldCheck, ArrowRight, MessageCircle, Phone, Sparkles, Zap, ChevronRight, Sun, Moon } from "lucide-react";
 import { useQuoteModal } from "@/context/QuoteModalContext";
 import { COMPANY_INFO } from "@/lib/constants";
 import { PRODUCT_CATEGORIES } from "@/data/products";
+import MagneticButton from "@/components/ui/MagneticButton";
 
 export default function HeroSection() {
   const { openQuoteModal } = useQuoteModal();
+  const [activeLightingMode, setActiveLightingMode] = useState<"cool" | "warm">("cool");
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-amber-50/60 via-white to-slate-50/80 pt-6 pb-12 lg:pt-14 lg:pb-20 border-b border-slate-200">
       
-      {/* Subtle Warm Lighting Glow behind header */}
+      {/* Subtle Warm Lighting Glow behind header — reactively shifts with Lighting Mode */}
       <div 
         aria-hidden="true" 
-        className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-gradient-to-b from-amber-200/40 via-sky-100/30 to-transparent blur-3xl opacity-70" 
+        className={`pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[450px] blur-3xl opacity-75 transition-all duration-700 ${
+          activeLightingMode === "warm"
+            ? "bg-gradient-to-b from-amber-300/50 via-amber-200/30 to-transparent"
+            : "bg-gradient-to-b from-sky-200/50 via-amber-100/30 to-transparent"
+        }`} 
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -49,16 +55,16 @@ export default function HeroSection() {
               Manufacturer of LED and solar lighting solutions for residential, commercial, industrial and large-scale projects. Heavy-duty die-cast housings, high lumen efficiency, and dependable performance.
             </p>
 
-            {/* Quick Action CTAs */}
+            {/* Quick Action CTAs with MagneticButton on Desktop */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-1">
-              {/* Primary: Get a Quote */}
-              <button
+              {/* Primary: Get a Quote (Magnetic Spring on Desktop fine-pointer) */}
+              <MagneticButton
                 onClick={() => openQuoteModal()}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-sm sm:text-base shadow-lg shadow-amber-500/25 transition-all duration-200 active:scale-95 group"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-sm sm:text-base shadow-lg shadow-amber-500/25 active:scale-95 group gap-2"
               >
                 <span>Get a Quote</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </MagneticButton>
 
               {/* Secondary: WhatsApp */}
               <a
@@ -98,9 +104,41 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Right Column: Hero Visual Product Banner */}
+          {/* Right Column: Hero Visual Product Banner with Interactive Lighting Mode Switcher */}
           <div className="lg:col-span-5 relative">
             <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-xl bg-white">
+              
+              {/* Interactive Lighting Spectrum Mode Switcher */}
+              <div className="absolute top-3 right-3 z-20 flex items-center gap-1 bg-white/95 backdrop-blur-md p-1 rounded-xl border border-slate-200 shadow-md">
+                <button
+                  type="button"
+                  onClick={() => setActiveLightingMode("cool")}
+                  className={`px-2.5 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1 transition-all ${
+                    activeLightingMode === "cool"
+                      ? "bg-slate-900 text-white shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                  title="Simulate 6500K Industrial Cool White"
+                >
+                  <Sun className="w-3 h-3 text-sky-400" />
+                  <span>6500K Cool</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveLightingMode("warm")}
+                  className={`px-2.5 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1 transition-all ${
+                    activeLightingMode === "warm"
+                      ? "bg-amber-500 text-slate-950 shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                  title="Simulate 3000K Warm Golden Ambience"
+                >
+                  <Moon className="w-3 h-3 text-amber-900" />
+                  <span>3000K Warm</span>
+                </button>
+              </div>
+
               <div className="relative w-full aspect-[4/3] sm:aspect-[16/11]">
                 <Image
                   src="/products/hero-lighting-banner.jpg"
@@ -110,7 +148,15 @@ export default function HeroSection() {
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
+
+                {/* Simulated Lighting Color Wash Overlay based on active mode */}
+                <div 
+                  className={`absolute inset-0 transition-opacity duration-500 pointer-events-none ${
+                    activeLightingMode === "warm"
+                      ? "bg-gradient-to-t from-amber-950/60 via-amber-500/10 to-transparent opacity-70"
+                      : "bg-gradient-to-t from-slate-950/70 via-sky-500/10 to-transparent opacity-60"
+                  }`} 
+                />
               </div>
 
               {/* Floating Bottom Card on Image */}
@@ -151,7 +197,7 @@ export default function HeroSection() {
             </Link>
           </div>
 
-          {/* Horizontally scrollable category pills/circles */}
+          {/* Horizontally scrollable category pills */}
           <div className="flex items-center gap-3 overflow-x-auto pb-2 no-scrollbar scroll-smooth">
             {PRODUCT_CATEGORIES.map((cat) => (
               <Link

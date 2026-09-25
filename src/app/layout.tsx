@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { QuoteModalProvider } from "@/context/QuoteModalContext";
 import Header from "@/components/layout/Header";
@@ -8,18 +7,6 @@ import MobileBottomBar from "@/components/layout/MobileBottomBar";
 import WhatsAppFloatingBtn from "@/components/layout/WhatsAppFloatingBtn";
 import QuoteModal from "@/components/ui/QuoteModal";
 import { COMPANY_INFO } from "@/lib/constants";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-plus-jakarta",
-  display: "swap",
-});
 
 export const viewport: Viewport = {
   themeColor: "#ffffff",
@@ -89,7 +76,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${plusJakarta.variable}`}>
+    <html lang="en">
       <body className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans selection:bg-amber-400 selection:text-slate-950 pb-16 sm:pb-0">
         <QuoteModalProvider>
           <Header />

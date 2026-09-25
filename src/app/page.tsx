@@ -3,6 +3,7 @@ import HeroSection from "@/components/home/HeroSection";
 import TrustIntroSection from "@/components/home/TrustIntroSection";
 import ProductCategoriesSection from "@/components/home/ProductCategoriesSection";
 import FeaturedProductsSection from "@/components/home/FeaturedProductsSection";
+import InteractiveLightingEstimator from "@/components/home/InteractiveLightingEstimator";
 import ApplicationsSection from "@/components/home/ApplicationsSection";
 import WhyLemisSection from "@/components/home/WhyLemisSection";
 import BulkProjectOrdersSection from "@/components/home/BulkProjectOrdersSection";
@@ -24,8 +25,11 @@ export default function HomePage() {
       {/* SECTION 3 — PRODUCT CATEGORIES */}
       <ProductCategoriesSection />
 
-      {/* SECTION 4 — FEATURED PRODUCTS */}
+      {/* SECTION 4 — FEATURED PRODUCTS (with Spotlight beam & wattage selector) */}
       <FeaturedProductsSection />
+
+      {/* SIGNATURE INTERACTIVE TOOL — PROJECT LIGHTING & LUX ESTIMATOR */}
+      <InteractiveLightingEstimator />
 
       {/* SECTION 5 — INDUSTRIES / APPLICATIONS */}
       <ApplicationsSection />
