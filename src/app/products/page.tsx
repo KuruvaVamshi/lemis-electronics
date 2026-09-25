@@ -3,9 +3,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, MessageSquare, ExternalLink, ArrowRight, ShieldCheck, Zap } from "lucide-react";
+import { Search, MessageSquare, ExternalLink, ArrowRight, ShieldCheck, Zap, MessageCircle } from "lucide-react";
 import { PRODUCTS, PRODUCT_CATEGORIES } from "@/data/products";
 import { useQuoteModal } from "@/context/QuoteModalContext";
+import { COMPANY_INFO } from "@/lib/constants";
 
 export default function ProductsPage() {
   const { openQuoteModal } = useQuoteModal();
@@ -39,6 +40,18 @@ export default function ProductsPage() {
           <p className="text-xs sm:text-base text-slate-600">
             Browse our complete manufactured line of LED floodlights, solar luminaires, high bay lights, downlights, and architectural profiles.
           </p>
+
+          <div className="pt-2 flex items-center justify-center gap-3">
+            <a
+              href={COMPANY_INFO.whatsappCatalogUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition-all active:scale-95"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span>Open Official WhatsApp Catalog</span>
+            </a>
+          </div>
         </div>
 
         {/* Filter & Search Bar (Swiggy / Zomato style sticky or top bar) */}

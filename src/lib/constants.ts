@@ -3,11 +3,12 @@ export const COMPANY_INFO = {
   tagline: "Manufacturers of All Kinds of LED and Solar Lights",
   shortDesc: "Manufacturer and supplier of high-efficiency LED and Solar lighting solutions for residential, commercial, industrial and large-scale infrastructure projects.",
   businessType: "LED Lighting & Solar Lighting Manufacturer / Supplier",
-  phone: "+91 98765 43210", // Placeholder until verified number is provided
-  displayPhone: "+91 98765 43210",
-  whatsappNumber: "919876543210", // Placeholder digits
-  email: "info@lemiselectronics.com", // Placeholder
-  address: "Industrial Area, Phase II, Hyderabad, Telangana, India", // Placeholder
+  phone: "+91 81500 11466",
+  displayPhone: "+91 81500 11466",
+  whatsappNumber: "918150011466",
+  whatsappCatalogUrl: "https://wa.me/c/918150011466",
+  email: "info@lemiselectronics.com",
+  address: "Industrial Area, Phase II, Hyderabad, Telangana, India",
   gmapsUrl: "https://maps.google.com",
   workingHours: "Monday – Saturday: 9:00 AM – 7:30 PM",
   manufacturingTag: "Made in India",
