@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowRight, MessageSquare, ChevronRight, Zap } from "lucide-react";
 import { PRODUCT_CATEGORIES } from "@/data/products";
 import { useQuoteModal } from "@/context/QuoteModalContext";
@@ -15,7 +16,13 @@ export default function ProductCategoriesSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 sm:mb-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 sm:mb-10"
+        >
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full">
               Full Manufacturing Portfolio
@@ -35,13 +42,29 @@ export default function ProductCategoriesSection() {
             <span>View Full Catalog</span>
             <ChevronRight className="w-4 h-4" />
           </Link>
-        </div>
+        </motion.div>
 
         {/* 12 Categories Grid (Swiggy/Zomato inspired mobile grid) */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-6">
+        <motion.div 
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-5%" }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1 }
+            }
+          }}
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-6"
+        >
           {PRODUCT_CATEGORIES.map((cat) => (
-            <div
+            <motion.div
               key={cat.slug}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
+              }}
               className="group rounded-2xl bg-white border border-slate-200 hover:border-amber-400 overflow-hidden flex flex-col justify-between transition-all duration-200 hover:-translate-y-0.5 shadow-sm hover:shadow-card-hover"
             >
               <div>
@@ -98,9 +121,9 @@ export default function ProductCategoriesSection() {
                   <span>Get Quote</span>
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>

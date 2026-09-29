@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import MobileBottomBar from "@/components/layout/MobileBottomBar";
 import WhatsAppFloatingBtn from "@/components/layout/WhatsAppFloatingBtn";
 import QuoteModal from "@/components/ui/QuoteModal";
+import CustomCursor from "@/components/ui/CustomCursor";
 import { COMPANY_INFO } from "@/lib/constants";
 
 export const viewport: Viewport = {
@@ -22,8 +23,13 @@ export const metadata: Metadata = {
   description:
     "Manufacturer of all kinds of LED and Solar Lights for industrial plants, commercial buildings, roads, apartments and infrastructure projects. Bulk order supply, competitive quotations, and custom lighting manufacturing.",
   keywords: [
+    "LEMIS ELECTRONICS",
+    "Lemis Electronics",
+    "LED bulbs",
+    "LED bulbs manufacturer",
+    "solar lights",
+    "solar lights manufacturer",
     "LED lights manufacturer",
-    "LED lighting manufacturer",
     "LED lights supplier",
     "LED flood lights",
     "LED street lights",
@@ -32,10 +38,10 @@ export const metadata: Metadata = {
     "LED down lights",
     "LED profile lights",
     "solar lighting solutions",
-    "LED lighting supplier",
-    "LED lighting manufacturer Hyderabad",
     "commercial lighting bulk supplier",
     "industrial lighting manufacturer",
+    "wholesale LED lights India",
+    "Made in India LED lights"
   ],
   authors: [{ name: COMPANY_INFO.name }],
   creator: COMPANY_INFO.name,
@@ -76,8 +82,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans selection:bg-amber-400 selection:text-slate-950 pb-16 sm:pb-0">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* SEO JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Manufacturer",
+              "name": COMPANY_INFO.name,
+              "url": "https://lemiselectronics.com",
+              "logo": "https://lemiselectronics.com/logo-lemis.png",
+              "description": "Manufacturer of all kinds of LED and Solar Lights including LED bulbs, solar lights, flood lights, and industrial lighting.",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Hyderabad",
+                "addressRegion": "Telangana",
+                "addressCountry": "IN"
+              },
+              "telephone": COMPANY_INFO.phone,
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": COMPANY_INFO.phone,
+                "contactType": "customer service"
+              }
+            })
+          }}
+        />
+      </head>
+      <body className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans selection:bg-amber-400 selection:text-slate-950 pb-16 sm:pb-0" suppressHydrationWarning>
         <QuoteModalProvider>
           <Header />
           <main className="flex-grow">{children}</main>
@@ -85,6 +119,7 @@ export default function RootLayout({
           <MobileBottomBar />
           <WhatsAppFloatingBtn />
           <QuoteModal />
+          <CustomCursor />
         </QuoteModalProvider>
       </body>
     </html>

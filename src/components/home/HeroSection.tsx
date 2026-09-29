@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ShieldCheck, ArrowRight, MessageCircle, Phone, Sparkles, Zap, ChevronRight, Sun, Moon } from "lucide-react";
 import { useQuoteModal } from "@/context/QuoteModalContext";
 import { COMPANY_INFO } from "@/lib/constants";
@@ -13,6 +15,24 @@ import MagneticButton from "@/components/ui/MagneticButton";
 export default function HeroSection() {
   const { openQuoteModal } = useQuoteModal();
   const [activeLightingMode, setActiveLightingMode] = useState<"cool" | "warm">("cool");
+  const imageRef = React.useRef<HTMLImageElement>(null);
+
+  React.useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    
+    if (imageRef.current) {
+      gsap.to(imageRef.current, {
+        y: "20%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: imageRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }
+  }, []);
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-amber-50/60 via-white to-slate-50/80 pt-6 pb-12 lg:pt-14 lg:pb-20 border-b border-slate-200">
@@ -33,30 +53,55 @@ export default function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Heading & CTAs */}
-          <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ staggerChildren: 0.15, delayChildren: 0.1 }}
+            className="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left"
+          >
             
             {/* Manufacturing Tag Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-100/80 border border-amber-300/80 text-amber-900 text-xs font-bold uppercase tracking-wider shadow-sm">
+            <motion.div 
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-100/80 border border-amber-300/80 text-amber-900 text-xs font-bold uppercase tracking-wider shadow-sm"
+            >
               <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse" />
               <span>Direct Manufacturer • LED & Solar Lights</span>
-            </div>
+            </motion.div>
 
             {/* Main Headline */}
-            <h1 className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black text-slate-900 font-heading tracking-tight leading-[1.12]">
+            <motion.h1 
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black text-slate-900 font-heading tracking-tight leading-[1.12]"
+            >
               Powering Spaces with{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700">
                 Reliable LED & Solar
               </span>{" "}
               Lighting
-            </h1>
+            </motion.h1>
 
             {/* Subheading */}
-            <p className="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+            <motion.p 
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal"
+            >
               Manufacturer of LED and solar lighting solutions for residential, commercial, industrial and large-scale projects. Heavy-duty die-cast housings, high lumen efficiency, and dependable performance.
-            </p>
+            </motion.p>
 
             {/* Quick Action CTAs with MagneticButton on Desktop */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-1">
+            <motion.div 
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-1"
+            >
               {/* Primary: Get a Quote (Magnetic Spring on Desktop fine-pointer) */}
               <MagneticButton
                 onClick={() => openQuoteModal()}
@@ -85,10 +130,15 @@ export default function HeroSection() {
                 <Phone className="w-3.5 h-3.5 text-amber-600" />
                 <span>Call Factory: {COMPANY_INFO.displayPhone}</span>
               </a>
-            </div>
+            </motion.div>
 
             {/* Trust Points */}
-            <div className="pt-3 border-t border-slate-200/80 flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 text-xs text-slate-600 font-medium">
+            <motion.div 
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="pt-3 border-t border-slate-200/80 flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 text-xs text-slate-600 font-medium"
+            >
               <span className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 Direct Manufacturer
@@ -101,11 +151,16 @@ export default function HeroSection() {
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 Made in India
               </span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right Column: Hero Visual Product Banner with Interactive Lighting Mode Switcher */}
-          <div className="lg:col-span-5 relative">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            className="lg:col-span-5 relative"
+          >
             <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-xl bg-white">
               
               {/* Interactive Lighting Spectrum Mode Switcher */}
@@ -139,13 +194,14 @@ export default function HeroSection() {
                 </button>
               </div>
 
-              <div className="relative w-full aspect-[4/3] sm:aspect-[16/11]">
+              <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] overflow-hidden">
                 <Image
+                  ref={imageRef}
                   src="/products/hero-lighting-banner.jpg"
                   alt="Lemis Electronics Industrial LED and Solar Lights"
                   fill
                   priority
-                  className="object-cover"
+                  className="object-cover scale-125 origin-top"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
 
@@ -177,7 +233,7 @@ export default function HeroSection() {
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
 
         </div>
 

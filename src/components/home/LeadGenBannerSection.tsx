@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { MessageCircle, Phone, ArrowRight, Zap, ShieldCheck } from "lucide-react";
 import { useQuoteModal } from "@/context/QuoteModalContext";
 import { COMPANY_INFO } from "@/lib/constants";
@@ -13,7 +14,13 @@ export default function LeadGenBannerSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* High-Impact Visual Banner */}
-        <div className="relative p-6 sm:p-12 lg:p-14 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 text-white shadow-xl overflow-hidden text-center">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95, y: 30 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="relative p-6 sm:p-12 lg:p-14 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 text-white shadow-xl overflow-hidden text-center"
+        >
           
           {/* Top amber accent line */}
           <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-amber-500 via-amber-400 to-sky-400" />
@@ -82,7 +89,7 @@ export default function LeadGenBannerSection() {
             </span>
           </div>
 
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { Shield, Sparkles, PackageCheck, Layers, BadgePercent, Headset, ArrowRight } from "lucide-react";
 import { useQuoteModal } from "@/context/QuoteModalContext";
 
@@ -45,7 +46,13 @@ export default function WhyLemisSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center space-y-2.5 mb-10 sm:mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl mx-auto text-center space-y-2.5 mb-10 sm:mb-12"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full">
             The Manufacturer Advantage
           </span>
@@ -55,15 +62,31 @@ export default function WhyLemisSection() {
           <p className="text-xs sm:text-base text-slate-600 leading-relaxed">
             We prioritize engineering integrity, transparent commercial terms, and responsive support for contractors, builders, and lighting professionals.
           </p>
-        </div>
+        </motion.div>
 
         {/* 6 Benefit Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <motion.div 
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-5%" }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1 }
+            }
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+        >
           {ADVANTAGES.map((adv) => {
             const Icon = adv.icon;
             return (
-              <div
+              <motion.div
                 key={adv.title}
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
+                }}
                 className="p-5 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-400 hover:bg-white transition-all duration-200 hover:-translate-y-0.5 shadow-sm hover:shadow-card-hover flex flex-col justify-between group"
               >
                 <div>
@@ -81,10 +104,10 @@ export default function WhyLemisSection() {
                 <div className="pt-3.5 mt-4 border-t border-slate-200/80 flex items-center gap-1.5 text-xs font-bold text-amber-700">
                   <span>Guaranteed Build Quality</span>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Callout Strip */}
         <div className="mt-10 p-6 rounded-2xl bg-gradient-to-r from-amber-50 via-white to-amber-50 border border-amber-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">

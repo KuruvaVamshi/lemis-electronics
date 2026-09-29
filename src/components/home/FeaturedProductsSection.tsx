@@ -133,7 +133,13 @@ export default function FeaturedProductsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 sm:mb-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 sm:mb-10"
+        >
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full">
               Flagship Fixtures
@@ -152,14 +158,34 @@ export default function FeaturedProductsSection() {
           >
             Request Bulk Pricing
           </button>
-        </div>
+        </motion.div>
 
         {/* Products Grid with Spotlight Lighting Effect & Interactive Wattage Chips */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <motion.div 
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-5%" }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1 }
+            }
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+        >
           {featured.map((product) => (
-            <ProductCardItem key={product.id} product={product} />
+            <motion.div 
+              key={product.id}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
+              }}
+            >
+              <ProductCardItem product={product} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Note */}
         <div className="mt-8 text-center">

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { Lightbulb, Sun, Layers, Wrench, CheckCircle2 } from "lucide-react";
 import { useQuoteModal } from "@/context/QuoteModalContext";
 
@@ -39,7 +40,13 @@ export default function TrustIntroSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
-        <div className="max-w-3xl mx-auto text-center space-y-2.5 mb-10 sm:mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl mx-auto text-center space-y-2.5 mb-10 sm:mb-12"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
             Manufacturing & Supply Capabilities
           </span>
@@ -49,15 +56,31 @@ export default function TrustIntroSection() {
           <p className="text-xs sm:text-base text-slate-600 leading-relaxed">
             Lemis Electronics is an Indian manufacturer and supplier focused on delivering rugged, high-performance LED and solar lighting fixtures for contractors, engineers, and institutional buyers.
           </p>
-        </div>
+        </motion.div>
 
         {/* 4 Compact Highlights Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <motion.div 
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-5%" }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1 }
+            }
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+        >
           {HIGHLIGHTS.map((item) => {
             const Icon = item.icon;
             return (
-              <div
+              <motion.div
                 key={item.title}
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
+                }}
                 className="p-5 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-400 hover:bg-white transition-all duration-300 shadow-sm hover:shadow-card-hover flex flex-col justify-between group"
               >
                 <div>
@@ -80,10 +103,10 @@ export default function TrustIntroSection() {
                     </div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Mini Bottom Banner */}
         <div className="mt-8 p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">

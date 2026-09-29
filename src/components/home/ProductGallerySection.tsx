@@ -2,9 +2,16 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Maximize2 } from "lucide-react";
+import { Maximize2, ChevronLeft, ChevronRight } from "lucide-react";
 import { GALLERY_ITEMS, GalleryItem } from "@/data/gallery";
 import LightboxModal from "@/components/ui/LightboxModal";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, EffectCoverflow, Navigation, Pagination } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 const TABS = [
   { id: "all", label: "All Fixtures" },
@@ -73,41 +80,77 @@ export default function ProductGallerySection() {
           </div>
         </div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-5">
-          {filteredItems.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => setActiveItem(item)}
-              className="group relative rounded-2xl overflow-hidden bg-white border border-slate-200 hover:border-amber-400 cursor-pointer transition-all duration-200 hover:-translate-y-0.5 shadow-sm hover:shadow-card-hover"
-            >
-              <div className="relative w-full aspect-[4/3] bg-slate-100">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="(max-width: 768px) 50vw, 25vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+        {/* Swiper 3D Gallery Carousel */}
+        <div className="relative mt-8">
+          <Swiper
+            effect={'coverflow'}
+            grabCursor={true}
+            centeredSlides={true}
+            loop={true}
+            slidesPerView={'auto'}
+            coverflowEffect={{
+              rotate: 20,
+              stretch: 0,
+              depth: 150,
+              modifier: 1,
+              slideShadows: true,
+            }}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            pagination={{ clickable: true, el: '.swiper-custom-pagination' }}
+            navigation={{
+              nextEl: '.swiper-button-next-custom',
+              prevEl: '.swiper-button-prev-custom',
+            }}
+            modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
+            className="w-full pt-4 pb-12"
+          >
+            {filteredItems.map((item) => (
+              <SwiperSlide key={item.id} className="w-[280px] sm:w-[350px] md:w-[450px]">
+                <div
+                  onClick={() => setActiveItem(item)}
+                  className="group relative rounded-2xl overflow-hidden bg-white border border-slate-200 cursor-pointer shadow-xl"
+                >
+                  <div className="relative w-full aspect-[4/3] bg-slate-100">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
 
-                {/* Hover icon */}
-                <div className="absolute top-2.5 right-2.5 p-1.5 rounded-lg bg-white/90 backdrop-blur-sm text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity shadow-sm">
-                  <Maximize2 className="w-3.5 h-3.5 text-amber-600" />
-                </div>
+                    <div className="absolute top-3 right-3 p-2 rounded-xl bg-white/90 backdrop-blur-sm text-slate-800 opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
+                      <Maximize2 className="w-4 h-4 text-amber-600" />
+                    </div>
 
-                {/* Title */}
-                <div className="absolute bottom-2.5 left-2.5 right-2.5">
-                  <span className="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-amber-400 block mb-0.5">
-                    {item.categoryLabel}
-                  </span>
-                  <h4 className="text-xs sm:text-sm font-bold text-white font-heading line-clamp-1">
-                    {item.title}
-                  </h4>
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <span className="text-[10px] font-extrabold uppercase tracking-widest text-amber-400 block mb-1">
+                        {item.categoryLabel}
+                      </span>
+                      <h4 className="text-sm sm:text-base font-bold text-white font-heading">
+                        {item.title}
+                      </h4>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          
+          {/* Custom Navigation */}
+          <div className="flex items-center justify-center gap-4 mt-2">
+            <button className="swiper-button-prev-custom w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-amber-600 hover:border-amber-300 shadow-sm transition-all z-10 cursor-pointer">
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <div className="swiper-custom-pagination flex items-center justify-center gap-1.5 z-10" />
+            <button className="swiper-button-next-custom w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-amber-600 hover:border-amber-300 shadow-sm transition-all z-10 cursor-pointer">
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
       </div>

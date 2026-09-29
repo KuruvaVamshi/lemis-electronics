@@ -1,6 +1,7 @@
 import React from "react";
 import HeroSection from "@/components/home/HeroSection";
 import TrustIntroSection from "@/components/home/TrustIntroSection";
+import MarqueeSection from "@/components/home/MarqueeSection";
 import ProductCategoriesSection from "@/components/home/ProductCategoriesSection";
 import FeaturedProductsSection from "@/components/home/FeaturedProductsSection";
 import InteractiveLightingEstimator from "@/components/home/InteractiveLightingEstimator";
@@ -12,12 +13,16 @@ import ProductGallerySection from "@/components/home/ProductGallerySection";
 import LeadGenBannerSection from "@/components/home/LeadGenBannerSection";
 import FaqSection from "@/components/home/FaqSection";
 import ContactSection from "@/components/home/ContactSection";
+import ExclusiveAdvertisingSection from "@/components/home/ExclusiveAdvertisingSection";
 
 export default function HomePage() {
   return (
     <>
       {/* SECTION 1 — HERO */}
       <HeroSection />
+
+      {/* INFINITE SCROLL MARQUEE */}
+      <MarqueeSection />
 
       {/* SECTION 2 — TRUST / BUSINESS INTRO */}
       <TrustIntroSection />
@@ -36,6 +41,9 @@ export default function HomePage() {
 
       {/* SECTION 6 — WHY LEMIS */}
       <WhyLemisSection />
+
+      {/* SECTION 6.5 — EXCLUSIVE ADVERTISING (NEW IMAGES) */}
+      <ExclusiveAdvertisingSection />
 
       {/* SECTION 7 — BULK & PROJECT ORDERS */}
       <BulkProjectOrdersSection />

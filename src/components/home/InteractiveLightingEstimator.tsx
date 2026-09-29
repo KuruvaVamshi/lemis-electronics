@@ -174,7 +174,13 @@ export default function InteractiveLightingEstimator() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center space-y-2.5 mb-10 sm:mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl mx-auto text-center space-y-2.5 mb-10 sm:mb-12"
+        >
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100/80 border border-amber-300 text-amber-900 text-xs font-bold uppercase tracking-wider">
             <Calculator className="w-3.5 h-3.5 text-amber-600" />
             <span>Interactive Engineering Tool</span>
@@ -187,13 +193,31 @@ export default function InteractiveLightingEstimator() {
           <p className="text-xs sm:text-base text-slate-600 leading-relaxed">
             Estimate recommended target lux, optimal fixture wattages, and required unit counts for your project area in real time.
           </p>
-        </div>
+        </motion.div>
 
         {/* Main Interactive Workstation Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        <motion.div 
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-5%" }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+            }
+          }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start"
+        >
           
           {/* Left Column: Interactive Controls */}
-          <div className="lg:col-span-7 bg-white p-5 sm:p-7 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } }
+            }}
+            className="lg:col-span-7 bg-white p-5 sm:p-7 rounded-3xl border border-slate-200 shadow-sm space-y-6"
+          >
             
             {/* 1. Space Type Selection Chips */}
             <div>
@@ -356,10 +380,16 @@ export default function InteractiveLightingEstimator() {
               </div>
             </div>
 
-          </div>
+          </motion.div>
 
           {/* Right Column: Live Output & Simulation Card */}
-          <div className="lg:col-span-5 bg-white rounded-3xl border border-slate-200 shadow-md p-5 sm:p-7 space-y-5 relative overflow-hidden flex flex-col justify-between">
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } }
+            }}
+            className="lg:col-span-5 bg-white rounded-3xl border border-slate-200 shadow-md p-5 sm:p-7 space-y-5 relative overflow-hidden flex flex-col justify-between"
+          >
             
             {/* Top Amber Accent Line */}
             <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-amber-500 via-amber-400 to-sky-400" />
@@ -452,9 +482,9 @@ export default function InteractiveLightingEstimator() {
               </button>
             </div>
 
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
 
         {/* Disclaimer / Contractor Support Footer */}
         <div className="mt-8 text-center text-xs text-slate-500">
