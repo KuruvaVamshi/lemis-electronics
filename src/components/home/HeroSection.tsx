@@ -201,7 +201,7 @@ export default function HeroSection() {
                   alt="Lemis Electronics Industrial LED and Solar Lights"
                   fill
                   priority
-                  className="object-cover scale-125 origin-top"
+                  className="object-cover animate-[heroKenBurns_14s_ease-in-out_infinite_alternate]"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
 
@@ -276,6 +276,21 @@ export default function HeroSection() {
             ))}
           </div>
         </div>
+
+        {/* Scroll Cue Indicator (Varaahi pattern) */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.6 }}
+          className="hidden lg:flex flex-col items-center gap-2 mt-10"
+        >
+          <div className="relative w-[2px] h-8 bg-slate-300 overflow-hidden rounded-full">
+            <div className="absolute top-0 left-0 w-full h-full bg-amber-500 animate-[scrollCue_2s_cubic-bezier(0.65,0,0.35,1)_infinite]" />
+          </div>
+          <span className="text-[10px] font-bold uppercase tracking-[3px] text-slate-400">
+            Scroll to Explore
+          </span>
+        </motion.div>
 
       </div>
     </section>

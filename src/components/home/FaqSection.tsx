@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { ChevronDown, MessageCircle } from "lucide-react";
+import { motion } from "framer-motion";
 import { FAQS } from "@/data/faq";
 import { COMPANY_INFO } from "@/lib/constants";
 
@@ -17,7 +18,13 @@ export default function FaqSection() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
-        <div className="text-center space-y-2.5 mb-10 sm:mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center space-y-2.5 mb-10 sm:mb-12"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full">
             Frequently Asked Questions
           </span>
@@ -27,14 +34,27 @@ export default function FaqSection() {
           <p className="text-xs sm:text-base text-slate-600">
             Factual information regarding our manufacturing capabilities, order procedures, and contractor support.
           </p>
-        </div>
+        </motion.div>
 
         {/* Accordion List */}
-        <div className="space-y-3">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } }
+          }}
+          className="space-y-3"
+        >
           {FAQS.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
-              <div
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
+                }}
                 key={faq.question}
                 className="rounded-2xl bg-white border border-slate-200 shadow-sm overflow-hidden transition-colors"
               >
@@ -59,10 +79,10 @@ export default function FaqSection() {
                     <p>{faq.answer}</p>
                   </div>
                 )}
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Unresolved question prompt */}
         <div className="mt-8 p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left shadow-sm">

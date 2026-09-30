@@ -69,3 +69,23 @@ h1, h2, h3, h4, h5, h6 {
     scroll-behavior: auto !important;
   }
 }
+
+/* Varaahi-style scroll cue animation */
+@keyframes scrollCue {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* Ken Burns slow cinematic zoom on hero image */
+@keyframes heroKenBurns {
+  0% {
+    transform: scale(1.0);
+  }
+  100% {
+    transform: scale(1.08);
+  }
+}

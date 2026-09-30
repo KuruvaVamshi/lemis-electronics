@@ -81,8 +81,11 @@ export default function TrustIntroSection() {
                   hidden: { opacity: 0, y: 30 },
                   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
                 }}
-                className="p-5 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-400 hover:bg-white transition-all duration-300 shadow-sm hover:shadow-card-hover flex flex-col justify-between group"
+                className="relative overflow-hidden p-5 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-400 hover:bg-white transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-1.5 flex flex-col justify-between group"
               >
+                {/* Gold accent bar scales in on hover */}
+                <div className="absolute top-0 left-0 w-1 h-full bg-amber-500 origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-500 rounded-l-2xl" />
+                
                 <div>
                   <div className="w-11 h-11 rounded-xl bg-amber-100/80 border border-amber-200 flex items-center justify-center text-amber-700 mb-3.5 group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">
                     <Icon className="w-5 h-5" />

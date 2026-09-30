@@ -65,7 +65,7 @@ export default function ProductCategoriesSection() {
                 hidden: { opacity: 0, y: 30 },
                 show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
               }}
-              className="group rounded-2xl bg-white border border-slate-200 hover:border-amber-400 overflow-hidden flex flex-col justify-between transition-all duration-200 hover:-translate-y-0.5 shadow-sm hover:shadow-card-hover"
+              className="group rounded-2xl bg-white border border-slate-200 hover:border-amber-400 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 shadow-sm hover:shadow-lg"
             >
               <div>
                 {/* Image Container with subtle zoom */}
@@ -75,7 +75,7 @@ export default function ProductCategoriesSection() {
                     alt={cat.name}
                     fill
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover group-hover:scale-[1.08] transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-60" />
                   

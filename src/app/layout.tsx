@@ -7,6 +7,7 @@ import MobileBottomBar from "@/components/layout/MobileBottomBar";
 import WhatsAppFloatingBtn from "@/components/layout/WhatsAppFloatingBtn";
 import QuoteModal from "@/components/ui/QuoteModal";
 import CustomCursor from "@/components/ui/CustomCursor";
+import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
 import { COMPANY_INFO } from "@/lib/constants";
 
 export const viewport: Viewport = {
@@ -113,6 +114,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans selection:bg-amber-400 selection:text-slate-950 pb-16 sm:pb-0" suppressHydrationWarning>
         <QuoteModalProvider>
+          <ScrollProgressBar />
           <Header />
           <main className="flex-grow">{children}</main>
           <Footer />

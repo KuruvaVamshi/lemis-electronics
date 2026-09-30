@@ -29,7 +29,8 @@ export const PRODUCTS: Product[] = [
     shortDesc: "High-power industrial LED flood lighting engineered for maximum outdoor illumination, rugged weather protection and heavy-duty thermal performance.",
     description: "Lemis LED Flood Lights are built for heavy-duty outdoor and industrial floodlighting. Featuring pressure die-cast aluminium housing with integrated heat sinks and high-lumen optical lenses, these fixtures deliver uniform, glare-controlled illumination across stadiums, building facades, factory yards, and construction sites.",
     specifications: {
-      "Available Wattages": "50W, 100W, 150W, 200W, 300W, 400W (Specifications available on request)",
+      "Available Wattages": "30W, 60W, 70W, 90W, 120W, 150W (AC/DC)",
+      "Luminous Flux": "Up to 6,600 lm (for 60W)",
       "Housing Material": "High-grade Die-Cast Aluminium with Thermal Dissipation Fins",
       "Protection Rating": "IP65 / IP66 Outdoor Rated (Dust & Water Resistant)",
       "Input Voltage": "140V – 285V AC, 50Hz Surge Protected",
@@ -60,7 +61,8 @@ export const PRODUCTS: Product[] = [
     shortDesc: "Industrial-grade UFO high bay LED luminaires designed for warehouses, manufacturing facilities, workshops and high-ceiling installations.",
     description: "Engineered specifically for expansive industrial ceilings from 6m to 15m+, Lemis LED High Bay Lights provide intense downward illumination with superior energy efficiency. Robust aluminium cold-forged heatsink ensures long lumen maintenance under demanding factory heat conditions.",
     specifications: {
-      "Available Wattages": "100W, 150W, 200W, 250W (Specifications available on request)",
+      "Available Wattages": "60W, 70W, 90W, 100W, 120W, 150W (AC/DC)",
+      "Luminous Flux": "9,900 lm (for 90W)",
       "Body Construction": "Aviation-grade Aluminium with High-Efficiency Cooling Ribs",
       "Optics": "High-transmission Optical Lens for glare-reduced wide throw",
       "Operating Voltage": "Wide voltage range with built-in surge protection",
@@ -147,11 +149,12 @@ export const PRODUCTS: Product[] = [
     shortDesc: "Aerodynamic municipal and commercial LED street lights with precision batwing optics for road safety and maximum pole spacing.",
     description: "Engineered to deliver uniform light distribution across single and multi-lane roads, highways, and residential streets. Built with die-cast aluminium housing for superior thermal dissipation and high-surge safety.",
     specifications: {
-      "Wattage Options": "24W, 36W, 50W, 70W, 100W, 150W (Specifications available on request)",
+      "Wattage Options": "15W, 30W, 36W, 48W, 60W, 90W, 120W, 150W (AC/DC)",
+      "Luminous Flux": "1,650 lm (15W), 5,280 lm (48W), 13,200 lm (120W)",
       "Optics": "Type II / Type III asymmetric road illumination lenses",
       "Surge Protection": "Integrated 4kV to 10kV SPD protection",
       "Casing": "Pressure die-cast aluminium with anti-corrosion powder coating",
-      "Ingress Protection": "IP65 / IP66 rated for extreme tropical monsoon conditions",
+      "Ingress Protection": "IP65 rated for extreme tropical monsoon conditions",
     },
     applications: [
       "Municipal Arterial Roads & Avenues",
@@ -177,9 +180,9 @@ export const PRODUCTS: Product[] = [
     description: "Lemis LED Down Lights combine sleek aesthetic trims with high CRI LEDs to bring out vibrant interior colors. Designed with snap-fit spring clips for rapid ceiling installation in gypsum, false ceiling, and grid systems.",
     specifications: {
       "Shapes & Formats": "Round & Square configurations",
-      "Wattages": "3W, 6W, 9W, 12W, 15W, 18W (Specifications available on request)",
+      "Wattages": "Round: 12W, 18W, 24W | Panel: 18W, 24W, 48W, 60W, 70W",
       "CCT Options": "Warm White (3000K), Neutral White (4000K), Cool Day Light (6500K)",
-      "Diffuser": "Opal PMMA anti-glare frosted light diffuser",
+      "Luminous Flux": "660 lm (12W Round), 6,600 lm (60W Panel)",
       "Cutout Sizes": "Standard ceiling cutouts from 2.5 inch to 8 inch",
     },
     applications: [

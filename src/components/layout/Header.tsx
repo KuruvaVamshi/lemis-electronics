@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, MessageCircle, Zap, ChevronRight, Search } from "lucide-react";
+import { Menu, X, Phone, MessageCircle, ChevronRight, Search } from "lucide-react";
 import { useQuoteModal } from "@/context/QuoteModalContext";
 import { COMPANY_INFO } from "@/lib/constants";
 
@@ -82,22 +83,14 @@ export default function Header() {
           
           {/* Logo & Tagline */}
           <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-white font-black shadow-md shadow-amber-500/20 group-hover:scale-105 transition-transform">
-              <Zap className="w-5 h-5 sm:w-6 sm:h-6 fill-white stroke-white" />
-            </div>
-            <div>
-              <div className="flex items-center gap-1">
-                <span className="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 font-heading">
-                  LEMIS
-                </span>
-                <span className="text-lg sm:text-xl font-bold tracking-tight text-amber-600 font-heading">
-                  ELECTRONICS
-                </span>
-              </div>
-              <p className="text-[10px] sm:text-[11px] text-slate-500 font-medium tracking-tight leading-none">
-                LED & Solar Lights Manufacturer
-              </p>
-            </div>
+            <Image 
+              src="/logo-lemis.png" 
+              alt="Lemis Electronics" 
+              width={200} 
+              height={200} 
+              className="w-auto h-16 sm:h-24 group-hover:scale-[1.02] transition-transform origin-left object-contain"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation Links */}

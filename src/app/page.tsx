@@ -2,6 +2,7 @@ import React from "react";
 import HeroSection from "@/components/home/HeroSection";
 import TrustIntroSection from "@/components/home/TrustIntroSection";
 import MarqueeSection from "@/components/home/MarqueeSection";
+import StatsRibbon from "@/components/home/StatsRibbon";
 import ProductCategoriesSection from "@/components/home/ProductCategoriesSection";
 import FeaturedProductsSection from "@/components/home/FeaturedProductsSection";
 import InteractiveLightingEstimator from "@/components/home/InteractiveLightingEstimator";
@@ -23,6 +24,9 @@ export default function HomePage() {
 
       {/* INFINITE SCROLL MARQUEE */}
       <MarqueeSection />
+
+      {/* STATS RIBBON — Animated counters (Varaahi pattern) */}
+      <StatsRibbon />
 
       {/* SECTION 2 — TRUST / BUSINESS INTRO */}
       <TrustIntroSection />

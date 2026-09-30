@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Zap, Phone, Mail, MapPin, MessageCircle, ArrowUpRight } from "lucide-react";
 import { COMPANY_INFO } from "@/lib/constants";
 import { PRODUCT_CATEGORIES } from "@/data/products";
@@ -50,18 +51,14 @@ export default function Footer() {
           
           {/* Col 1: Brand Info */}
           <div className="lg:col-span-2 space-y-3.5">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-slate-950 font-black">
-                <Zap className="w-5 h-5 fill-slate-950 stroke-slate-950" />
-              </div>
-              <div className="flex items-center gap-1">
-                <span className="text-xl font-black tracking-tight text-white font-heading">
-                  LEMIS
-                </span>
-                <span className="text-xl font-bold tracking-tight text-amber-500 font-heading">
-                  ELECTRONICS
-                </span>
-              </div>
+            <Link href="/" className="inline-block hover:opacity-90 transition-opacity">
+              <Image 
+                src="/logo-lemis.png" 
+                alt="Lemis Electronics" 
+                width={200} 
+                height={200} 
+                className="w-auto h-20 sm:h-28 object-contain"
+              />
             </Link>
 
             <p className="text-amber-400 font-bold text-xs tracking-wider uppercase">

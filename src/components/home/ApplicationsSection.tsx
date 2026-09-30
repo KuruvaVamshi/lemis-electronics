@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { APPLICATIONS } from "@/data/applications";
 import { useQuoteModal } from "@/context/QuoteModalContext";
 
@@ -14,7 +15,13 @@ export default function ApplicationsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center space-y-2.5 mb-10 sm:mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl mx-auto text-center space-y-2.5 mb-10 sm:mb-12"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full">
             Tailored Industry Solutions
           </span>
@@ -24,12 +31,25 @@ export default function ApplicationsSection() {
           <p className="text-xs sm:text-base text-slate-600 leading-relaxed">
             From heavy manufacturing floors requiring high-bay illumination to residential ceilings demanding glare-free rimless downlights, Lemis Electronics provides application-engineered lighting.
           </p>
-        </div>
+        </motion.div>
 
         {/* Applications Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } }
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+        >
           {APPLICATIONS.map((app) => (
-            <div
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+              }}
               key={app.id}
               className="group rounded-2xl bg-white border border-slate-200 hover:border-amber-400 overflow-hidden flex flex-col justify-between transition-all duration-200 hover:-translate-y-0.5 shadow-sm hover:shadow-card-hover"
             >
@@ -86,9 +106,9 @@ export default function ApplicationsSection() {
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>
