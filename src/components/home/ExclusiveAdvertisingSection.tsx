@@ -62,6 +62,9 @@ export default function ExclusiveAdvertisingSection() {
 
     if (!sectionRef.current || !scrollContainerRef.current) return;
 
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
     const sections = gsap.utils.toArray(".horizontal-item");
     
     // Create the horizontal scroll animation
@@ -72,8 +75,8 @@ export default function ExclusiveAdvertisingSection() {
         scrollTrigger: {
           trigger: sectionRef.current,
           pin: true,
+          anticipatePin: 1,
           scrub: 1, // Smooth scrubbing effect
-          snap: 1 / (sections.length - 1), // Optional snap to panels
           end: () => "+=" + (scrollContainerRef.current?.offsetWidth || 0),
         },
       });

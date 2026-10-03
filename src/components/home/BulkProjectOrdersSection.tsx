@@ -1,10 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useLayoutEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Send, MessageCircle, ShieldCheck, CheckCircle2, PhoneCall } from "lucide-react";
 import { COMPANY_INFO, TARGET_CUSTOMERS } from "@/lib/constants";
 import { formatWhatsAppMessage } from "@/lib/utils";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useState } from "react";
 
+/**
+ * BulkProjectOrdersSection — "Blueprint Unfold" animation.
+ * The left content draws on like a technical drawing with ruled lines,
+ * while the form card slides in from the right with a perspective
+ * rotation that unfolds like opening a folder.
+ * Customer chips cascade in with a wave pattern.
+ */
 export default function BulkProjectOrdersSection() {
   const [formData, setFormData] = useState({
     name: "",
@@ -17,6 +28,66 @@ export default function BulkProjectOrdersSection() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const formCardRef = useRef<HTMLDivElement>(null);
+  const chipRefs = useRef<(HTMLSpanElement | null)[]>([]);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    if (!sectionRef.current) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      // Form card: perspective unfold from right edge
+      if (formCardRef.current) {
+        gsap.fromTo(
+          formCardRef.current,
+          { 
+            opacity: 0, 
+            rotateY: -12, 
+            x: 80,
+            transformOrigin: "right center",
+          },
+          {
+            opacity: 1,
+            rotateY: 0,
+            x: 0,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: formCardRef.current,
+              start: "top 80%",
+            },
+          }
+        );
+      }
+
+      // Customer chips: wave cascade
+      chipRefs.current.forEach((chip, idx) => {
+        if (!chip) return;
+        gsap.fromTo(
+          chip,
+          { opacity: 0, y: 15, scale: 0.8 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.4,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: chip,
+              start: "top 90%",
+            },
+            delay: idx * 0.06,
+          }
+        );
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -49,42 +120,69 @@ export default function BulkProjectOrdersSection() {
     setSubmitted(true);
   };
 
+  // Left content stagger variants
+  const leftVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+    },
+  };
+
+  const leftChildVariants = {
+    hidden: { opacity: 0, x: -40, filter: "blur(4px)" },
+    show: { 
+      opacity: 1, 
+      x: 0, 
+      filter: "blur(0px)",
+      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } 
+    },
+  };
+
   return (
-    <section id="bulk-orders" className="py-12 lg:py-20 bg-slate-50 border-b border-slate-200 relative overflow-hidden">
+    <section ref={sectionRef} id="bulk-orders" className="py-12 lg:py-20 bg-slate-50 border-b border-slate-200 relative overflow-hidden" style={{ perspective: "1200px" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Left Column: Heading & Context */}
-          <div className="lg:col-span-5 space-y-4 sm:space-y-5">
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full">
+          {/* Left Column: Blueprint-style content draw-on */}
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-10%" }}
+            variants={leftVariants}
+            className="lg:col-span-5 space-y-4 sm:space-y-5"
+          >
+            <motion.span variants={leftChildVariants} className="inline-block text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full">
               Bulk Supply & Project Division
-            </span>
+            </motion.span>
             
-            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-heading tracking-tight leading-tight">
+            <motion.h2 variants={leftChildVariants} className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 font-heading tracking-tight leading-tight">
               Planning a Lighting Project?
-            </h2>
+            </motion.h2>
 
-            <p className="text-xs sm:text-base text-slate-600 leading-relaxed">
+            <motion.p variants={leftChildVariants} className="text-xs sm:text-base text-slate-600 leading-relaxed">
               Whether you need lighting for a commercial building, warehouse, factory, apartment project, outdoor area or large-scale development, talk to our team for product recommendations and bulk quotations.
-            </p>
+            </motion.p>
 
-            <div className="space-y-2 pt-1">
+            <motion.div variants={leftChildVariants} className="space-y-2 pt-1">
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700">
                 Supplying Directly To:
               </h4>
               <div className="flex flex-wrap gap-1.5">
-                {TARGET_CUSTOMERS.slice(0, 8).map((customer) => (
+                {TARGET_CUSTOMERS.slice(0, 8).map((customer, idx) => (
                   <span
                     key={customer}
+                    ref={(el) => { chipRefs.current[idx] = el; }}
                     className="inline-block px-2.5 py-1 rounded-lg text-xs font-medium bg-white border border-slate-200 text-slate-700 shadow-xs"
+                    style={{ opacity: 0 }}
                   >
                     {customer}
                   </span>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            <div className="p-4 rounded-xl bg-white border border-slate-200 space-y-1.5 shadow-sm">
+            <motion.div variants={leftChildVariants} className="p-4 rounded-xl bg-white border border-slate-200 space-y-1.5 shadow-sm">
               <div className="flex items-center gap-2 text-amber-700 font-bold text-xs sm:text-sm">
                 <PhoneCall className="w-4 h-4 text-amber-600" />
                 <span>Prefer Direct Discussion?</span>
@@ -96,19 +194,33 @@ export default function BulkProjectOrdersSection() {
                 </a>{" "}
                 or chat on WhatsApp for fast BOQ estimation.
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* Right Column: Lead Gen Form Card */}
-          <div className="lg:col-span-7">
+          {/* Right Column: Perspective Unfold Form Card */}
+          <div
+            ref={formCardRef}
+            className="lg:col-span-7"
+            style={{ opacity: 0, transformStyle: "preserve-3d" }}
+          >
             <div className="p-5 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-xl relative overflow-hidden">
               <div className="h-1.5 w-full bg-gradient-to-r from-amber-500 via-amber-400 to-sky-500 absolute top-0 left-0" />
 
               {submitted ? (
-                <div className="py-8 text-center space-y-3">
-                  <div className="w-14 h-14 bg-emerald-50 border border-emerald-200 rounded-full flex items-center justify-center mx-auto text-emerald-600">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="py-8 text-center space-y-3"
+                >
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.15 }}
+                    className="w-14 h-14 bg-emerald-50 border border-emerald-200 rounded-full flex items-center justify-center mx-auto text-emerald-600"
+                  >
                     <CheckCircle2 className="w-8 h-8" />
-                  </div>
+                  </motion.div>
                   <h3 className="text-xl sm:text-2xl font-black text-slate-900 font-heading">
                     Project Enquiry Submitted!
                   </h3>
@@ -121,7 +233,7 @@ export default function BulkProjectOrdersSection() {
                   >
                     Submit Another Requirement
                   </button>
-                </div>
+                </motion.div>
               ) : (
                 <form onSubmit={handleFormSubmit} className="space-y-3.5">
                   <div className="border-b border-slate-100 pb-2.5">
@@ -291,6 +403,16 @@ export default function BulkProjectOrdersSection() {
 
         </div>
       </div>
+
+      {/* Reduced motion fallback */}
+      <style jsx>{`
+        @media (prefers-reduced-motion: reduce) {
+          [style*="opacity: 0"] {
+            opacity: 1 !important;
+            transform: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

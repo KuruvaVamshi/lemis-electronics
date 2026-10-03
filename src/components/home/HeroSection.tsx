@@ -54,10 +54,13 @@ export default function HeroSection() {
           
           {/* Left Column: Heading & CTAs */}
           <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ staggerChildren: 0.15, delayChildren: 0.1 }}
-            className="lg:col-span-7 space-y-4 sm:space-y-6 text-center lg:text-left"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: {},
+              visible: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } }
+            }}
+            className="lg:col-span-7 space-y-5 sm:space-y-7 text-center lg:text-left"
           >
             
             {/* Manufacturing Tag Badge */}
@@ -71,19 +74,28 @@ export default function HeroSection() {
               <span>Direct Manufacturer • LED & Solar Lights</span>
             </motion.div>
 
-            {/* Main Headline */}
-            <motion.h1 
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black text-slate-900 font-heading tracking-tight leading-[1.12]"
-            >
-              Powering Spaces with{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700">
-                Reliable LED & Solar
-              </span>{" "}
-              Lighting
-            </motion.h1>
+            {/* Main Headline (Staggered Word Reveal) */}
+            <h1 className="text-4xl sm:text-5xl lg:text-5xl xl:text-[4rem] font-black text-slate-900 font-heading tracking-tight leading-[1.05] overflow-hidden">
+              {"Powering Spaces with Reliable LED & Solar Lighting".split(" ").map((word, idx) => (
+                <motion.span
+                  key={idx}
+                  variants={{
+                    hidden: { y: "100%", opacity: 0, rotate: 5 },
+                    visible: { y: "0%", opacity: 1, rotate: 0 }
+                  }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="inline-block mr-[0.3em] pb-1"
+                >
+                  {word === "Reliable" || word === "LED" || word === "&" || word === "Solar" ? (
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700">
+                      {word}
+                    </span>
+                  ) : (
+                    word
+                  )}
+                </motion.span>
+              ))}
+            </h1>
 
             {/* Subheading */}
             <motion.p 
@@ -105,7 +117,7 @@ export default function HeroSection() {
               {/* Primary: Get a Quote (Magnetic Spring on Desktop fine-pointer) */}
               <MagneticButton
                 onClick={() => openQuoteModal()}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-sm sm:text-base shadow-lg shadow-amber-500/25 active:scale-95 group gap-2"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-sm sm:text-base shadow-lg shadow-amber-500/25 active:scale-95 group gap-2 cta-shine"
               >
                 <span>Get a Quote</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -154,11 +166,11 @@ export default function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Right Column: Hero Visual Product Banner with Interactive Lighting Mode Switcher */}
+          {/* Right Column: Hero Visual Product Banner */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            initial={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)", opacity: 0 }}
+            animate={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", opacity: 1 }}
+            transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1], delay: 0.3 }}
             className="lg:col-span-5 relative"
           >
             <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-xl bg-white">
@@ -194,23 +206,23 @@ export default function HeroSection() {
                 </button>
               </div>
 
-              <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] overflow-hidden">
+              <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] overflow-hidden bg-white">
                 <Image
                   ref={imageRef}
-                  src="/products/hero-lighting-banner.jpg"
-                  alt="Lemis Electronics Industrial LED and Solar Lights"
+                  src="/products/hero-generated.jpg"
+                  alt="Industrial LED High Bay Lighting"
                   fill
                   priority
-                  className="object-cover animate-[heroKenBurns_14s_ease-in-out_infinite_alternate]"
+                  className="object-cover animate-[heroKenBurns_20s_ease-in-out_infinite_alternate]"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
 
                 {/* Simulated Lighting Color Wash Overlay based on active mode */}
                 <div 
-                  className={`absolute inset-0 transition-opacity duration-500 pointer-events-none ${
+                  className={`absolute inset-0 transition-opacity duration-500 pointer-events-none mix-blend-overlay ${
                     activeLightingMode === "warm"
-                      ? "bg-gradient-to-t from-amber-950/60 via-amber-500/10 to-transparent opacity-70"
-                      : "bg-gradient-to-t from-slate-950/70 via-sky-500/10 to-transparent opacity-60"
+                      ? "bg-gradient-to-t from-amber-100/80 via-amber-50/40 to-transparent opacity-60"
+                      : "bg-gradient-to-t from-sky-100/80 via-sky-50/40 to-transparent opacity-50"
                   }`} 
                 />
               </div>

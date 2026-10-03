@@ -3,13 +3,13 @@ import HeroSection from "@/components/home/HeroSection";
 import TrustIntroSection from "@/components/home/TrustIntroSection";
 import MarqueeSection from "@/components/home/MarqueeSection";
 import StatsRibbon from "@/components/home/StatsRibbon";
+import HorizontalServicesSection from "@/components/home/HorizontalServicesSection";
 import ProductCategoriesSection from "@/components/home/ProductCategoriesSection";
 import FeaturedProductsSection from "@/components/home/FeaturedProductsSection";
-import InteractiveLightingEstimator from "@/components/home/InteractiveLightingEstimator";
-import ApplicationsSection from "@/components/home/ApplicationsSection";
+import InteractiveProjectsSection from "@/components/home/InteractiveProjectsSection";
 import WhyLemisSection from "@/components/home/WhyLemisSection";
 import BulkProjectOrdersSection from "@/components/home/BulkProjectOrdersSection";
-import EnquiryProcessSection from "@/components/home/EnquiryProcessSection";
+import AnimatedProcessSection from "@/components/home/AnimatedProcessSection";
 import ProductGallerySection from "@/components/home/ProductGallerySection";
 import LeadGenBannerSection from "@/components/home/LeadGenBannerSection";
 import FaqSection from "@/components/home/FaqSection";
@@ -25,46 +25,46 @@ export default function HomePage() {
       {/* INFINITE SCROLL MARQUEE */}
       <MarqueeSection />
 
-      {/* STATS RIBBON — Animated counters (Varaahi pattern) */}
+      {/* STATS RIBBON — Animated counters */}
       <StatsRibbon />
 
       {/* SECTION 2 — TRUST / BUSINESS INTRO */}
       <TrustIntroSection />
 
-      {/* SECTION 3 — PRODUCT CATEGORIES */}
+      {/* SECTION 3 — ★ HORIZONTAL SCROLL SERVICES SHOWCASE (Signature Move) */}
+      <HorizontalServicesSection />
+
+      {/* SECTION 4 — PRODUCT CATEGORIES */}
       <ProductCategoriesSection />
 
-      {/* SECTION 4 — FEATURED PRODUCTS (with Spotlight beam & wattage selector) */}
+      {/* SECTION 5 — FEATURED PRODUCTS (with Spotlight beam & wattage selector) */}
       <FeaturedProductsSection />
 
-      {/* SIGNATURE INTERACTIVE TOOL — PROJECT LIGHTING & LUX ESTIMATOR */}
-      <InteractiveLightingEstimator />
+      {/* SECTION 6 — ★ INTERACTIVE PROJECTS SHOWCASE (Animated Carousel) */}
+      <InteractiveProjectsSection />
 
-      {/* SECTION 5 — INDUSTRIES / APPLICATIONS */}
-      <ApplicationsSection />
-
-      {/* SECTION 6 — WHY LEMIS */}
+      {/* SECTION 7 — WHY LEMIS */}
       <WhyLemisSection />
 
-      {/* SECTION 6.5 — EXCLUSIVE ADVERTISING (NEW IMAGES) */}
+      {/* SECTION 7.5 — EXCLUSIVE ADVERTISING (NEW IMAGES) */}
       <ExclusiveAdvertisingSection />
 
-      {/* SECTION 7 — BULK & PROJECT ORDERS */}
+      {/* SECTION 8 — BULK & PROJECT ORDERS */}
       <BulkProjectOrdersSection />
 
-      {/* SECTION 8 — PRODUCT ENQUIRY PROCESS */}
-      <EnquiryProcessSection />
+      {/* SECTION 9 — ★ ANIMATED PROCESS (SVG Path Draw + Scroll-Driven) */}
+      <AnimatedProcessSection />
 
-      {/* SECTION 9 — PRODUCT GALLERY */}
+      {/* SECTION 10 — PRODUCT GALLERY */}
       <ProductGallerySection />
 
-      {/* SECTION 10 — LEAD GENERATION CTA */}
+      {/* SECTION 11 — LEAD GENERATION CTA */}
       <LeadGenBannerSection />
 
-      {/* SECTION 11 — FAQ */}
+      {/* SECTION 12 — FAQ */}
       <FaqSection />
 
-      {/* SECTION 12 — CONTACT */}
+      {/* SECTION 13 — CONTACT */}
       <ContactSection />
     </>
   );

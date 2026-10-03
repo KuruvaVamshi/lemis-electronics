@@ -1,21 +1,95 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, MessageSquare, ChevronRight, Zap } from "lucide-react";
 import { PRODUCT_CATEGORIES } from "@/data/products";
 import { useQuoteModal } from "@/context/QuoteModalContext";
+import SpotlightCard from "@/components/ui/SpotlightCard";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+/**
+ * ProductCategoriesSection — "Masonry Cascade" animation.
+ * Cards enter with a waterfall-style staggered cascade where
+ * each column drops in with different timing, creating a natural
+ * "rainfall" settle pattern. Images have a scale-reveal from center.
+ */
 export default function ProductCategoriesSection() {
   const { openQuoteModal } = useQuoteModal();
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    if (!sectionRef.current) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      // Masonry cascade: cards in different columns get different delays
+      // Column pattern for 4-column grid: 0,1,2,3 then repeat
+      cardRefs.current.forEach((card, idx) => {
+        if (!card) return;
+        const col = idx % 4;
+        // Waterfall: each column has a base delay offset to create diagonal cascade
+        const colDelay = [0, 0.08, 0.16, 0.24][col];
+        const rowDelay = Math.floor(idx / 4) * 0.12;
+        
+        gsap.fromTo(
+          card,
+          { 
+            opacity: 0, 
+            y: 80 + col * 20, // Different heights per column
+            scale: 0.9,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 92%",
+            },
+            delay: colDelay + rowDelay,
+          }
+        );
+
+        // Image scale-reveal: starts zoomed in and settles
+        const img = card.querySelector("[data-cat-img]");
+        if (img) {
+          gsap.fromTo(
+            img,
+            { scale: 1.3, opacity: 0 },
+            {
+              scale: 1,
+              opacity: 1,
+              duration: 0.9,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 92%",
+              },
+              delay: colDelay + rowDelay + 0.15,
+            }
+          );
+        }
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="categories" className="py-12 lg:py-20 bg-slate-50 border-b border-slate-200">
+    <section ref={sectionRef} id="categories" className="py-12 lg:py-20 bg-slate-50 border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
+        {/* Section Header — horizontal line expand + text */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -24,9 +98,15 @@ export default function ProductCategoriesSection() {
           className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 sm:mb-10"
         >
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full">
+            <motion.span
+              initial={{ opacity: 0, scaleX: 0 }}
+              whileInView={{ opacity: 1, scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="inline-block text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full origin-left"
+            >
               Full Manufacturing Portfolio
-            </span>
+            </motion.span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 font-heading tracking-tight mt-1.5">
               Our Lighting Solutions
             </h2>
@@ -44,39 +124,28 @@ export default function ProductCategoriesSection() {
           </Link>
         </motion.div>
 
-        {/* 12 Categories Grid (Swiggy/Zomato inspired mobile grid) */}
-        <motion.div 
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-5%" }}
-          variants={{
-            hidden: { opacity: 0 },
-            show: {
-              opacity: 1,
-              transition: { staggerChildren: 0.1 }
-            }
-          }}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-6"
-        >
-          {PRODUCT_CATEGORIES.map((cat) => (
-            <motion.div
+        {/* 12 Categories Grid — Masonry Cascade */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-6">
+          {PRODUCT_CATEGORIES.map((cat, idx) => (
+            <div
               key={cat.slug}
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
-              }}
-              className="group rounded-2xl bg-white border border-slate-200 hover:border-amber-400 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 shadow-sm hover:shadow-lg"
+              ref={(el) => { cardRefs.current[idx] = el; }}
+              className="h-full"
+              style={{ opacity: 0 }}
             >
-              <div>
-                {/* Image Container with subtle zoom */}
+              <SpotlightCard className="group h-full flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:border-amber-400 p-0 overflow-hidden">
+                <div>
+                {/* Image Container with scale-reveal */}
                 <div className="relative w-full aspect-[4/3] bg-slate-100 overflow-hidden">
-                  <Image
-                    src={cat.image}
-                    alt={cat.name}
-                    fill
-                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-                    className="object-cover group-hover:scale-[1.08] transition-transform duration-500"
-                  />
+                  <div data-cat-img className="absolute inset-0" style={{ opacity: 0 }}>
+                    <Image
+                      src={cat.image}
+                      alt={cat.name}
+                      fill
+                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                      className="object-cover group-hover:scale-[1.08] transition-transform duration-500"
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-60" />
                   
                   {/* Range Tag */}
@@ -103,7 +172,7 @@ export default function ProductCategoriesSection() {
                 </div>
               </div>
 
-              {/* Actions Footer (Swiggy style "+ Get Quote" button) */}
+              {/* Actions Footer */}
               <div className="p-3 pt-0 sm:p-4 sm:pt-0 grid grid-cols-1 sm:grid-cols-2 gap-1.5 border-t border-slate-100 mt-auto">
                 <Link
                   href={`/products#${cat.slug}`}
@@ -121,11 +190,21 @@ export default function ProductCategoriesSection() {
                   <span>Get Quote</span>
                 </button>
               </div>
-            </motion.div>
+            </SpotlightCard>
+          </div>
           ))}
-        </motion.div>
+        </div>
 
       </div>
+
+      {/* Reduced motion fallback */}
+      <style jsx>{`
+        @media (prefers-reduced-motion: reduce) {
+          [style*="opacity: 0"] {
+            opacity: 1 !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

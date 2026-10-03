@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import WhyLemisSection from "@/components/home/WhyLemisSection";
 import { MessageCircle, Phone, ArrowRight } from "lucide-react";
 import { useQuoteModal } from "@/context/QuoteModalContext";
@@ -13,7 +14,12 @@ export default function WhyLemisPage() {
   return (
     <div className="bg-slate-50 min-h-screen">
       <div className="py-10 lg:py-16 border-b border-slate-200 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-3 py-1 rounded-full inline-block">
             The Lemis Advantage
           </span>
@@ -23,13 +29,19 @@ export default function WhyLemisPage() {
           <p className="text-xs sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
             Direct manufacturer accountability, rugged die-cast aluminium construction, transparent commercial terms, and prompt technical support.
           </p>
-        </div>
+        </motion.div>
       </div>
 
       <WhyLemisSection />
 
       {/* Direct Contact Banner */}
-      <div className="py-14 bg-white border-t border-slate-200">
+      <motion.div 
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-5%" }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="py-14 bg-white border-t border-slate-200"
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading">
             Ready to discuss your lighting requirements?
@@ -40,7 +52,7 @@ export default function WhyLemisPage() {
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               onClick={() => openQuoteModal("Why Lemis Enquiry")}
-              className="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-md active:scale-95"
+              className="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-md active:scale-95 cta-shine"
             >
               Request a Project Quote
             </button>
@@ -55,7 +67,7 @@ export default function WhyLemisPage() {
             </a>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

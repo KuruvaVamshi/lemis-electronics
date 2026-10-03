@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Zap, Factory, ShieldCheck, Sun, Layers, ArrowRight, Phone, MessageCircle } from "lucide-react";
 import { COMPANY_INFO, TARGET_CUSTOMERS } from "@/lib/constants";
 import { useQuoteModal } from "@/context/QuoteModalContext";
@@ -15,7 +16,12 @@ export default function AboutPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Hero */}
-        <div className="max-w-3xl mx-auto text-center space-y-3 mb-12 sm:mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl mx-auto text-center space-y-3 mb-12 sm:mb-16"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full">
             About Lemis Electronics
           </span>
@@ -25,10 +31,16 @@ export default function AboutPage() {
           <p className="text-xs sm:text-base text-slate-600 leading-relaxed">
             Lemis Electronics is an Indian manufacturer and supplier specializing in high-performance LED luminaires and independent solar lighting solutions.
           </p>
-        </div>
+        </motion.div>
 
         {/* Manufacturing Story Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-5%" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16"
+        >
           <div className="lg:col-span-6 space-y-4">
             <h2 className="text-xl sm:text-3xl font-black text-slate-900 font-heading">
               Our Manufacturing Focus
@@ -66,10 +78,16 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* What We Stand For */}
-        <div className="mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-5%" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16"
+        >
           <div className="text-center max-w-2xl mx-auto mb-8">
             <h2 className="text-xl sm:text-3xl font-black text-slate-900 font-heading">
               Our Core Commitments
@@ -80,7 +98,7 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-2.5 shadow-sm">
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-2.5 shadow-sm hover:border-amber-300 transition-colors">
               <ShieldCheck className="w-8 h-8 text-amber-600" />
               <h3 className="text-base sm:text-lg font-bold text-slate-900 font-heading">Honest Specifications</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
@@ -88,7 +106,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-2.5 shadow-sm">
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-2.5 shadow-sm hover:border-amber-300 transition-colors">
               <Layers className="w-8 h-8 text-sky-600" />
               <h3 className="text-base sm:text-lg font-bold text-slate-900 font-heading">Contractor-First Support</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
@@ -96,7 +114,7 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-2.5 shadow-sm">
+            <div className="p-6 rounded-2xl bg-white border border-slate-200 space-y-2.5 shadow-sm hover:border-amber-300 transition-colors">
               <Sun className="w-8 h-8 text-amber-600" />
               <h3 className="text-base sm:text-lg font-bold text-slate-900 font-heading">Sustainable Solar Solutions</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
@@ -104,10 +122,16 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Target Customers Served */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 mb-12 shadow-sm">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-5%" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 mb-12 shadow-sm"
+        >
           <h2 className="text-lg sm:text-2xl font-black text-slate-900 font-heading mb-4 text-center">
             Who We Partner With
           </h2>
@@ -115,16 +139,22 @@ export default function AboutPage() {
             {TARGET_CUSTOMERS.map((cust) => (
               <span
                 key={cust}
-                className="px-3 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200"
+                className="px-3 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200 hover:border-amber-300 transition-colors"
               >
                 {cust}
               </span>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* CTA Banner */}
-        <div className="p-6 sm:p-10 rounded-3xl bg-gradient-to-r from-slate-900 to-slate-950 text-white text-center space-y-4 shadow-xl">
+        <motion.div 
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-5%" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="p-6 sm:p-10 rounded-3xl bg-gradient-to-r from-slate-900 to-slate-950 text-white text-center space-y-4 shadow-xl"
+        >
           <h2 className="text-xl sm:text-3xl font-black font-heading">
             Connect with our Manufacturing Sales Desk
           </h2>
@@ -134,7 +164,7 @@ export default function AboutPage() {
           <div className="flex flex-wrap justify-center gap-3">
             <button
               onClick={() => openQuoteModal("About Page Enquiry")}
-              className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-md active:scale-95"
+              className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-md active:scale-95 cta-shine"
             >
               Request a Project Quote
             </button>
@@ -148,7 +178,7 @@ export default function AboutPage() {
               <span>WhatsApp Direct</span>
             </a>
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </div>

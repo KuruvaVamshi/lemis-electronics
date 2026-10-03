@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { MessageSquareText, Lightbulb, FileSpreadsheet, Truck, ArrowRight } from "lucide-react";
 import { useQuoteModal } from "@/context/QuoteModalContext";
 
@@ -39,7 +40,13 @@ export default function EnquiryProcessSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
-        <div className="max-w-2xl mx-auto text-center space-y-2.5 mb-10 sm:mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-2xl mx-auto text-center space-y-2.5 mb-10 sm:mb-12"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full">
             Simple 4-Step Process
           </span>
@@ -49,15 +56,28 @@ export default function EnquiryProcessSection() {
           <p className="text-xs sm:text-base text-slate-600">
             A transparent and fast procurement process designed specifically for contractors, engineers, and bulk buyers.
           </p>
-        </div>
+        </motion.div>
 
         {/* 4 Steps Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 relative">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-5%" }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { staggerChildren: 0.12 } }
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 relative"
+        >
           {STEPS.map((item, idx) => {
             const Icon = item.icon;
             return (
-              <div
+              <motion.div
                 key={item.step}
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+                }}
                 className="relative p-5 sm:p-6 rounded-2xl bg-slate-50 border border-slate-200 hover:border-amber-400 hover:bg-white transition-all duration-200 hover:-translate-y-0.5 shadow-sm flex flex-col justify-between group"
               >
                 <div>
@@ -83,10 +103,10 @@ export default function EnquiryProcessSection() {
                   <span>Step {idx + 1} of 4</span>
                   <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Action Button */}
         <div className="mt-8 text-center">

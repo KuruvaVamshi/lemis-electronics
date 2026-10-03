@@ -9,7 +9,7 @@
 
 /* Light Theme as Default */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   color-scheme: light;
 }
 
@@ -58,6 +58,29 @@ h1, h2, h3, h4, h5, h6 {
   scrollbar-width: none;
 }
 
+/* Section heading tag utility */
+.section-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #b45309;
+}
+
+/* Smooth focus ring for interactive elements */
+button:focus-visible, a:focus-visible {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Premium card hover shadow transition */
+.card-premium {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+}
+
 /* Reduced Motion Fallback */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -86,6 +109,56 @@ h1, h2, h3, h4, h5, h6 {
     transform: scale(1.0);
   }
   100% {
+    transform: scale(1.08);
+  }
+}
+
+/* Premium CTA shine sweep (hardware-accelerated) */
+@keyframes ctaShineSweep {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(250%) skewX(-15deg);
+    opacity: 0;
+  }
+}
+
+/* CTA Shine Sweep Hover — pointer-gated premium button effect */
+.cta-shine {
+  position: relative;
+  overflow: hidden;
+}
+.cta-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transform: translateX(-100%) skewX(-15deg);
+  opacity: 0;
+  pointer-events: none;
+}
+@media (pointer: fine) {
+  .cta-shine:hover::after {
+    animation: ctaShineSweep 0.8s ease-out forwards;
+  }
+}
+
+/* Logo glow pulse — subtle ambient breathing for the navbar logo aura */
+@keyframes logoGlowPulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
     transform: scale(1.08);
   }
 }

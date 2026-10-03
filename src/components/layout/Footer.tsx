@@ -1,7 +1,10 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Zap, Phone, Mail, MapPin, MessageCircle, ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { COMPANY_INFO } from "@/lib/constants";
 import { PRODUCT_CATEGORIES } from "@/data/products";
 
@@ -10,7 +13,13 @@ export default function Footer() {
     <footer className="bg-slate-900 border-t border-slate-800 text-slate-400 text-sm">
       {/* Top Banner / Factory Strip */}
       <div className="border-b border-slate-800 bg-slate-950/60 py-7 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left"
+        >
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
               <Zap className="w-5 h-5" />
@@ -42,15 +51,24 @@ export default function Footer() {
               Call Factory
             </a>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-5%" }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+          }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12"
+        >
           
           {/* Col 1: Brand Info */}
-          <div className="lg:col-span-2 space-y-3.5">
+          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } } }} className="lg:col-span-2 space-y-3.5">
             <Link href="/" className="inline-block hover:opacity-90 transition-opacity">
               <Image 
                 src="/logo-lemis.png" 
@@ -77,10 +95,10 @@ export default function Footer() {
                 Bulk Order Supplier
               </span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Col 2: Quick Links */}
-          <div>
+          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } } }}>
             <h4 className="text-xs font-bold uppercase tracking-wider text-white font-heading mb-4">
               Quick Links
             </h4>
@@ -121,10 +139,10 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Col 3: Key Products */}
-          <div>
+          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } } }}>
             <h4 className="text-xs font-bold uppercase tracking-wider text-white font-heading mb-4">
               Lighting Products
             </h4>
@@ -166,10 +184,10 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Col 4: Contact & Office */}
-          <div>
+          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } } }}>
             <h4 className="text-xs font-bold uppercase tracking-wider text-white font-heading mb-4">
               Factory & Sales Desk
             </h4>
@@ -202,8 +220,8 @@ export default function Footer() {
                 </a>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Bottom Strip */}
         <div className="mt-10 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">

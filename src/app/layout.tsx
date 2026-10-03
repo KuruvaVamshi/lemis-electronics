@@ -116,7 +116,7 @@ export default function RootLayout({
         <QuoteModalProvider>
           <ScrollProgressBar />
           <Header />
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow pt-[90px] md:pt-[120px]">{children}</main>
           <Footer />
           <MobileBottomBar />
           <WhatsAppFloatingBtn />

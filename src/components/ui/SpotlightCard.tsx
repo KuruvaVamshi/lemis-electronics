@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import { motion, useMotionValue, useSpring, useTransform, type HTMLMotionProps } from "framer-motion";
 
-interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface SpotlightCardProps extends HTMLMotionProps<"div"> {
   children: React.ReactNode;
   className?: string;
   spotlightColor?: string;
@@ -36,13 +37,31 @@ export default function SpotlightCard({
     return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
+  // 3D Tilt values
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 30 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 30 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["8deg", "-8deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-8deg", "8deg"]);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!divRef.current || !hasFinePointer) return;
 
     const div = divRef.current;
     const rect = div.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
 
-    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    setPosition({ x: mouseX, y: mouseY });
+    
+    // Tilt calculation
+    const xPct = (mouseX / rect.width) - 0.5;
+    const yPct = (mouseY / rect.height) - 0.5;
+    x.set(xPct);
+    y.set(yPct);
   };
 
   const handleFocus = () => {
@@ -61,10 +80,12 @@ export default function SpotlightCard({
 
   const handleMouseLeave = () => {
     setOpacity(0);
+    x.set(0);
+    y.set(0);
   };
 
   return (
-    <div
+    <motion.div
       ref={divRef}
       onMouseMove={handleMouseMove}
       onFocus={handleFocus}
@@ -72,6 +93,7 @@ export default function SpotlightCard({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={`relative rounded-2xl overflow-hidden bg-white border border-slate-200 transition-all duration-300 shadow-sm hover:shadow-card-hover ${className}`}
+      style={hasFinePointer ? { rotateX, rotateY, transformStyle: "preserve-3d" } : {}}
       {...props}
     >
       {/* Dynamic Lighting Beam Spotlight overlay */}
@@ -87,9 +109,9 @@ export default function SpotlightCard({
       )}
 
       {/* Card Content */}
-      <div className="relative z-20 h-full flex flex-col justify-between">
+      <div className="relative z-20 h-full flex flex-col justify-between transform-gpu" style={{ transform: hasFinePointer ? "translateZ(30px)" : "none" }}>
         {children}
       </div>
-    </div>
+    </motion.div>
   );
 }

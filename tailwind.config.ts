@@ -9,6 +9,32 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        amber: {
+          50: '#fff9ed',
+          100: '#ffeed3',
+          200: '#fed8a5',
+          300: '#febb6d',
+          400: '#fea216', // Logo Orange Base
+          500: '#f98607',
+          600: '#dd6202',
+          700: '#b84406',
+          800: '#94340c',
+          900: '#7a2d0f',
+          950: '#451505',
+        },
+        red: {
+          50: '#fff0ec',
+          100: '#ffded6',
+          200: '#ffc1b2',
+          300: '#ff977f',
+          400: '#ff6142',
+          500: '#fd3711', // Logo Bright Red
+          600: '#ef2400',
+          700: '#c71900',
+          800: '#aa012e', // Logo Dark Crimson
+          900: '#85121b',
+          950: '#480409',
+        },
         brand: {
           50: "#f8fafc",
           100: "#f1f5f9",
@@ -21,10 +47,10 @@ const config: Config = {
           800: "#1e293b",
           900: "#0f172a",
           950: "#020617",
-          amber: "#f59e0b",
-          amberDark: "#d97706",
-          amberLight: "#fffbeb",
-          amberBorder: "#fde68a",
+          amber: "#fea216",
+          amberDark: "#dd6202",
+          amberLight: "#fff9ed",
+          amberBorder: "#fed8a5",
           cyan: "#0284c7",
           cyanLight: "#e0f2fe",
           whatsapp: "#25D366",

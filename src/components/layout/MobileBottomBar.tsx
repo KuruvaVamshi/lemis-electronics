@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { Phone, MessageCircle, FileText, ArrowRight } from "lucide-react";
 import { useQuoteModal } from "@/context/QuoteModalContext";
 import { COMPANY_INFO } from "@/lib/constants";
@@ -9,7 +10,13 @@ export default function MobileBottomBar() {
   const { openQuoteModal } = useQuoteModal();
 
   return (
-    <aside aria-label="Mobile quick actions" className="fixed bottom-3 inset-x-3 z-40 sm:hidden">
+    <motion.aside
+      initial={{ y: 100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: 1.5, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      aria-label="Mobile quick actions"
+      className="fixed bottom-3 inset-x-3 z-40 sm:hidden"
+    >
       <div className="bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-2xl p-1.5 shadow-dock flex items-center justify-between gap-1.5">
         
         {/* Quick Call */}
@@ -43,6 +50,6 @@ export default function MobileBottomBar() {
         </button>
 
       </div>
-    </aside>
+    </motion.aside>
   );
 }

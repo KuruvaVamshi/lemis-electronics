@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, MessageSquare } from "lucide-react";
 import { APPLICATIONS } from "@/data/applications";
 import { useQuoteModal } from "@/context/QuoteModalContext";
@@ -15,7 +16,12 @@ export default function ApplicationsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="max-w-3xl mx-auto text-center space-y-2 mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl mx-auto text-center space-y-2 mb-12"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-3 py-1 rounded-full inline-block">
             Application-Specific Engineering
           </span>
@@ -25,13 +31,17 @@ export default function ApplicationsPage() {
           <p className="text-xs sm:text-base text-slate-600">
             Tailored luminaires, optical distributions, and thermal ratings engineered to match specific application demands.
           </p>
-        </div>
+        </motion.div>
 
         {/* Detailed Application Sections */}
         <div className="space-y-8 sm:space-y-12">
           {APPLICATIONS.map((app, idx) => (
-            <div
+            <motion.div
               key={app.id}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-5%" }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="p-5 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center"
             >
               <div className={`space-y-4 ${idx % 2 === 1 ? "lg:col-span-6 lg:order-2" : "lg:col-span-6 lg:order-1"}`}>
@@ -64,7 +74,7 @@ export default function ApplicationsPage() {
                 <div className="pt-3 flex flex-wrap items-center gap-2.5">
                   <button
                     onClick={() => openQuoteModal(`${app.title} Lighting Inquiry`)}
-                    className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-sm active:scale-95"
+                    className="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-sm active:scale-95 cta-shine"
                   >
                     <MessageSquare className="w-4 h-4" />
                     <span>Get Quote for {app.title}</span>
@@ -86,7 +96,7 @@ export default function ApplicationsPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent" />
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 

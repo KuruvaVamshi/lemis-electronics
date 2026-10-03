@@ -1,12 +1,19 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { COMPANY_INFO } from "@/lib/constants";
 
 export default function WhatsAppFloatingBtn() {
   return (
-    <aside aria-label="WhatsApp quick chat" className="fixed bottom-20 sm:bottom-8 right-5 sm:right-8 z-40">
+    <motion.aside
+      initial={{ opacity: 0, scale: 0.8, y: 20 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ delay: 2, duration: 0.5, type: "spring", stiffness: 260, damping: 20 }}
+      aria-label="WhatsApp quick chat"
+      className="fixed bottom-20 sm:bottom-8 right-5 sm:right-8 z-40"
+    >
       <a
         href={`https://wa.me/${COMPANY_INFO.whatsappNumber}?text=Hello%20Lemis%20Electronics%2C%20I%20am%20interested%20in%20your%20LED%20and%20Solar%20Lighting%20solutions.`}
         target="_blank"
@@ -25,6 +32,6 @@ export default function WhatsAppFloatingBtn() {
           <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-300 border-2 border-brand-950"></span>
         </span>
       </a>
-    </aside>
+    </motion.aside>
   );
 }

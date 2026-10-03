@@ -1,10 +1,20 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
+import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, MessageCircle, Send, Clock, CheckCircle2 } from "lucide-react";
 import { COMPANY_INFO } from "@/lib/constants";
 import { formatWhatsAppMessage } from "@/lib/utils";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+/**
+ * ContactSection — "Glass Panel Slide" animation.
+ * The left contact info panel slides in from the bottom-left with a scale,
+ * while each contact channel row animates sequentially with a clip-path reveal.
+ * The right form panel slides in from the right with perspective depth.
+ * The map has a smooth opacity reveal with border expansion.
+ */
 export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: "",
@@ -17,6 +27,101 @@ export default function ContactSection() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const leftPanelRef = useRef<HTMLDivElement>(null);
+  const rightPanelRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
+  const channelRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    if (!sectionRef.current) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      // Left panel — slide from bottom-left
+      if (leftPanelRef.current) {
+        gsap.fromTo(
+          leftPanelRef.current,
+          { opacity: 0, y: 50, x: -30 },
+          {
+            opacity: 1,
+            y: 0,
+            x: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: leftPanelRef.current,
+              start: "top 82%",
+            },
+          }
+        );
+      }
+
+      // Contact channel rows — sequential clip-path reveal from left
+      channelRefs.current.forEach((channel, idx) => {
+        if (!channel) return;
+        gsap.fromTo(
+          channel,
+          { opacity: 0, x: -25 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.5,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: channel,
+              start: "top 90%",
+            },
+            delay: idx * 0.1,
+          }
+        );
+      });
+
+      // Right panel — slide from right with perspective
+      if (rightPanelRef.current) {
+        gsap.fromTo(
+          rightPanelRef.current,
+          { opacity: 0, x: 60, rotateY: -8 },
+          {
+            opacity: 1,
+            x: 0,
+            rotateY: 0,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: rightPanelRef.current,
+              start: "top 80%",
+            },
+            delay: 0.15,
+          }
+        );
+      }
+
+      // Map — opacity + scale reveal
+      if (mapRef.current) {
+        gsap.fromTo(
+          mapRef.current,
+          { opacity: 0, scale: 0.95 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.7,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: mapRef.current,
+              start: "top 85%",
+            },
+            delay: 0.3,
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -50,11 +155,17 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-12 lg:py-20 bg-white">
+    <section ref={sectionRef} id="contact" className="py-12 lg:py-20 bg-white" style={{ perspective: "1200px" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Heading */}
-        <div className="max-w-3xl mx-auto text-center space-y-2.5 mb-10 sm:mb-12">
+        {/* Section Heading — blur rise */}
+        <motion.div
+          initial={{ opacity: 0, y: 25, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl mx-auto text-center space-y-2.5 mb-10 sm:mb-12"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full">
             Direct Factory Channels
           </span>
@@ -64,12 +175,16 @@ export default function ContactSection() {
           <p className="text-xs sm:text-base text-slate-600">
             Reach our sales and manufacturing facility for product inquiries, dealer discussions, or project quotations.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
           {/* Left Column: Contact Cards + Map */}
-          <div className="lg:col-span-5 space-y-5">
+          <div
+            ref={leftPanelRef}
+            className="lg:col-span-5 space-y-5"
+            style={{ opacity: 0 }}
+          >
             
             {/* Direct Channels Card */}
             <div className="p-5 sm:p-6 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm space-y-4">
@@ -78,7 +193,7 @@ export default function ContactSection() {
               </h3>
 
               {/* Phone */}
-              <div className="flex items-start gap-3">
+              <div ref={(el) => { channelRefs.current[0] = el; }} className="flex items-start gap-3" style={{ opacity: 0 }}>
                 <div className="w-10 h-10 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-700 shrink-0 mt-0.5">
                   <Phone className="w-4 h-4" />
                 </div>
@@ -91,7 +206,7 @@ export default function ContactSection() {
               </div>
 
               {/* WhatsApp */}
-              <div className="flex items-start gap-3">
+              <div ref={(el) => { channelRefs.current[1] = el; }} className="flex items-start gap-3" style={{ opacity: 0 }}>
                 <div className="w-10 h-10 rounded-xl bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-700 shrink-0 mt-0.5">
                   <MessageCircle className="w-4 h-4" />
                 </div>
@@ -109,7 +224,7 @@ export default function ContactSection() {
               </div>
 
               {/* Email */}
-              <div className="flex items-start gap-3">
+              <div ref={(el) => { channelRefs.current[2] = el; }} className="flex items-start gap-3" style={{ opacity: 0 }}>
                 <div className="w-10 h-10 rounded-xl bg-sky-100 border border-sky-200 flex items-center justify-center text-sky-700 shrink-0 mt-0.5">
                   <Mail className="w-4 h-4" />
                 </div>
@@ -122,7 +237,7 @@ export default function ContactSection() {
               </div>
 
               {/* Address */}
-              <div className="flex items-start gap-3">
+              <div ref={(el) => { channelRefs.current[3] = el; }} className="flex items-start gap-3" style={{ opacity: 0 }}>
                 <div className="w-10 h-10 rounded-xl bg-slate-200/80 border border-slate-300 flex items-center justify-center text-slate-700 shrink-0 mt-0.5">
                   <MapPin className="w-4 h-4" />
                 </div>
@@ -135,14 +250,18 @@ export default function ContactSection() {
               </div>
 
               {/* Hours */}
-              <div className="flex items-start gap-2.5 pt-2 border-t border-slate-200 text-xs text-slate-500">
+              <div ref={(el) => { channelRefs.current[4] = el; }} className="flex items-start gap-2.5 pt-2 border-t border-slate-200 text-xs text-slate-500" style={{ opacity: 0 }}>
                 <Clock className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
                 <span>{COMPANY_INFO.workingHours}</span>
               </div>
             </div>
 
-            {/* Google Maps Embed / Location Preview */}
-            <div className="rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 h-48 sm:h-52 relative shadow-xs">
+            {/* Google Maps Embed */}
+            <div
+              ref={mapRef}
+              className="rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 h-48 sm:h-52 relative shadow-xs"
+              style={{ opacity: 0 }}
+            >
               <iframe
                 title="Lemis Electronics Location Map"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d121820.76861819777!2d78.3846985223362!3d17.412348705030438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99daeaebd2c7%3A0xae93b78392bafbc2!2sHyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
@@ -153,8 +272,12 @@ export default function ContactSection() {
 
           </div>
 
-          {/* Right Column: Contact Enquiry Form */}
-          <div className="lg:col-span-7">
+          {/* Right Column: Contact Enquiry Form — Perspective Slide */}
+          <div
+            ref={rightPanelRef}
+            className="lg:col-span-7"
+            style={{ opacity: 0, transformStyle: "preserve-3d" }}
+          >
             <div className="p-5 sm:p-8 rounded-3xl bg-slate-50 border border-slate-200 shadow-md">
               <h3 className="text-lg sm:text-xl font-black text-slate-900 font-heading mb-1">
                 Send Product Enquiry
@@ -164,10 +287,20 @@ export default function ContactSection() {
               </p>
 
               {submitted ? (
-                <div className="py-8 text-center space-y-3">
-                  <div className="w-14 h-14 bg-emerald-50 border border-emerald-200 rounded-full flex items-center justify-center mx-auto text-emerald-600">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="py-8 text-center space-y-3"
+                >
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15, delay: 0.1 }}
+                    className="w-14 h-14 bg-emerald-50 border border-emerald-200 rounded-full flex items-center justify-center mx-auto text-emerald-600"
+                  >
                     <CheckCircle2 className="w-8 h-8" />
-                  </div>
+                  </motion.div>
                   <h4 className="text-xl font-black text-slate-900 font-heading">
                     Enquiry Received
                   </h4>
@@ -180,7 +313,7 @@ export default function ContactSection() {
                   >
                     Submit Another Query
                   </button>
-                </div>
+                </motion.div>
               ) : (
                 <form onSubmit={handleFormSubmit} className="space-y-3.5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -333,6 +466,16 @@ export default function ContactSection() {
 
         </div>
       </div>
+
+      {/* Reduced motion fallback */}
+      <style jsx>{`
+        @media (prefers-reduced-motion: reduce) {
+          [style*="opacity: 0"] {
+            opacity: 1 !important;
+            transform: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

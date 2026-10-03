@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { Maximize2, ChevronLeft, ChevronRight } from "lucide-react";
 import { GALLERY_ITEMS, GalleryItem } from "@/data/gallery";
 import LightboxModal from "@/components/ui/LightboxModal";
@@ -49,7 +50,13 @@ export default function ProductGallerySection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10"
+        >
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full">
               Visual Showcase
@@ -78,7 +85,7 @@ export default function ProductGallerySection() {
               </button>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Swiper 3D Gallery Carousel */}
         <div className="relative mt-8">

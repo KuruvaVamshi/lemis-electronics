@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -8,6 +8,8 @@ import { ArrowRight, MessageSquare, ExternalLink, Sparkles, CheckCircle2, Slider
 import { PRODUCTS, Product } from "@/data/products";
 import { useQuoteModal } from "@/context/QuoteModalContext";
 import SpotlightCard from "@/components/ui/SpotlightCard";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 function ProductCardItem({ product }: { product: Product }) {
   const { openQuoteModal } = useQuoteModal();
@@ -124,12 +126,69 @@ function ProductCardItem({ product }: { product: Product }) {
   );
 }
 
+/**
+ * FeaturedProductsSection — "Radial Bloom" animation.
+ * Products radiate outward from the center of the grid like
+ * light emanating from a source. Center cards appear first,
+ * outer cards follow. Each card has a subtle scale + opacity entrance.
+ */
 export default function FeaturedProductsSection() {
   const { openQuoteModal } = useQuoteModal();
   const featured = PRODUCTS.filter((p) => p.featured).slice(0, 8);
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    if (!sectionRef.current) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      cardRefs.current.forEach((el) => {
+        if (el) el.style.opacity = "1";
+      });
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      const totalCards = cardRefs.current.length;
+      const centerIndex = Math.floor(totalCards / 2);
+
+      cardRefs.current.forEach((card, idx) => {
+        if (!card) return;
+        
+        // Distance from center determines delay
+        const distanceFromCenter = Math.abs(idx - centerIndex);
+        const delay = distanceFromCenter * 0.1;
+
+        gsap.fromTo(
+          card,
+          {
+            opacity: 0,
+            scale: 0.85,
+            y: 30,
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "back.out(1.4)",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 65%",
+            },
+            delay: delay,
+          }
+        );
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [featured.length]);
 
   return (
-    <section id="featured-products" className="py-12 lg:py-20 bg-white border-b border-slate-200">
+    <section ref={sectionRef} id="featured-products" className="py-12 lg:py-20 bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
@@ -141,9 +200,15 @@ export default function FeaturedProductsSection() {
           className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 sm:mb-10"
         >
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full">
+            <motion.span
+              initial={{ opacity: 0, x: -15 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="inline-block text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full"
+            >
               Flagship Fixtures
-            </span>
+            </motion.span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 font-heading tracking-tight mt-1.5">
               Featured Lighting Luminaires
             </h2>
@@ -160,41 +225,42 @@ export default function FeaturedProductsSection() {
           </button>
         </motion.div>
 
-        {/* Products Grid with Spotlight Lighting Effect & Interactive Wattage Chips */}
-        <motion.div 
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-5%" }}
-          variants={{
-            hidden: { opacity: 0 },
-            show: {
-              opacity: 1,
-              transition: { staggerChildren: 0.1 }
-            }
-          }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
-        >
-          {featured.map((product) => (
-            <motion.div 
+        {/* Products Grid — Radial Bloom */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {featured.map((product, idx) => (
+            <div
               key={product.id}
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
-              }}
+              ref={(el) => { cardRefs.current[idx] = el; }}
+              style={{ opacity: 0 }}
             >
               <ProductCardItem product={product} />
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Note */}
-        <div className="mt-8 text-center">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="mt-8 text-center"
+        >
           <p className="text-xs text-slate-500">
             * Specifications and photometric reports available on request for electrical consultants and architects.
           </p>
-        </div>
+        </motion.div>
 
       </div>
+
+      {/* Reduced motion fallback */}
+      <style jsx>{`
+        @media (prefers-reduced-motion: reduce) {
+          [style*="opacity: 0"] {
+            opacity: 1 !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

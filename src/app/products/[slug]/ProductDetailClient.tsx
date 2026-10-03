@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { MessageSquare, MessageCircle, Phone, ArrowLeft, ShieldCheck, CheckCircle2, Factory, Layers, ArrowRight } from "lucide-react";
 import { Product, PRODUCTS } from "@/data/products";
 import { useQuoteModal } from "@/context/QuoteModalContext";
@@ -50,7 +51,12 @@ export default function ProductDetailClient({ product }: { product: Product }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
           {/* Left Column: Image Gallery */}
-          <div className="lg:col-span-6 space-y-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-6 space-y-4"
+          >
             <div className="relative w-full aspect-[4/3] rounded-3xl bg-white border border-slate-200 overflow-hidden shadow-md">
               <Image
                 src={activeImage}
@@ -105,10 +111,15 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                 Direct from factory supply. Rigorous burn-in tested luminaires with verified thermal dissipation and genuine component sourcing.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Details & Enquiry Actions */}
-          <div className="lg:col-span-6 space-y-5">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-6 space-y-5"
+          >
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 border border-amber-200 px-3 py-1 rounded-full">
                 {product.category}
@@ -140,7 +151,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <button
                   onClick={() => openQuoteModal(product.name)}
-                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-md active:scale-95"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-md active:scale-95 cta-shine"
                 >
                   <MessageSquare className="w-4 h-4" />
                   <span>Request Quote</span>
@@ -191,11 +202,17 @@ export default function ProductDetailClient({ product }: { product: Product }) {
               </div>
             </div>
 
-          </div>
+          </motion.div>
         </div>
 
         {/* Specifications Table Section */}
-        <div className="mt-12 pt-10 border-t border-slate-200">
+        <motion.div 
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-5%" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-12 pt-10 border-t border-slate-200"
+        >
           <div className="max-w-3xl">
             <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-0.5 rounded-full">
               Engineering Specs
@@ -241,11 +258,17 @@ export default function ProductDetailClient({ product }: { product: Product }) {
               * Note: Exact wattages, driver brands, and beam angles can be configured based on project consultant specifications.
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
-          <div className="mt-12 pt-10 border-t border-slate-200">
+          <motion.div 
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-5%" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-12 pt-10 border-t border-slate-200"
+          >
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h3 className="text-lg sm:text-xl font-black text-slate-900 font-heading">
@@ -304,7 +327,7 @@ export default function ProductDetailClient({ product }: { product: Product }) {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
 
       </div>

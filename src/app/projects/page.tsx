@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { FileSpreadsheet, ShieldCheck, CheckCircle2, Phone, MessageCircle, ArrowRight, Layers, Factory } from "lucide-react";
 import { useQuoteModal } from "@/context/QuoteModalContext";
 import { COMPANY_INFO, TARGET_CUSTOMERS } from "@/lib/constants";
@@ -15,7 +16,12 @@ export default function ProjectsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="max-w-3xl mx-auto text-center space-y-2 mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl mx-auto text-center space-y-2 mb-12"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-3 py-1 rounded-full inline-block">
             Project Division
           </span>
@@ -25,11 +31,17 @@ export default function ProjectsPage() {
           <p className="text-xs sm:text-base text-slate-600">
             Dedicated manufacturing and logistics coordination for large residential apartments, factories, infrastructure corridors, and commercial complexes.
           </p>
-        </div>
+        </motion.div>
 
         {/* 3 Pillars of Project Supply */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
+        <motion.div 
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-5%" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12"
+        >
+          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3 hover:border-amber-300 transition-colors">
             <div className="w-12 h-12 rounded-xl bg-amber-100 border border-amber-200 flex items-center justify-center text-amber-700">
               <FileSpreadsheet className="w-6 h-6" />
             </div>
@@ -41,7 +53,7 @@ export default function ProjectsPage() {
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
+          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3 hover:border-sky-300 transition-colors">
             <div className="w-12 h-12 rounded-xl bg-sky-100 border border-sky-200 flex items-center justify-center text-sky-700">
               <Factory className="w-6 h-6" />
             </div>
@@ -53,7 +65,7 @@ export default function ProjectsPage() {
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
+          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3 hover:border-emerald-300 transition-colors">
             <div className="w-12 h-12 rounded-xl bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-700">
               <Layers className="w-6 h-6" />
             </div>
@@ -64,10 +76,16 @@ export default function ProjectsPage() {
               We align dispatch schedules with your construction milestones—delivering basement/conduit fixtures first, followed by interior downlights and exterior street luminaires.
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Project Supply Flow Banner */}
-        <div className="p-6 sm:p-10 rounded-3xl bg-white border border-slate-200 shadow-md mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-5%" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="p-6 sm:p-10 rounded-3xl bg-white border border-slate-200 shadow-md mb-12"
+        >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
               <span className="text-xs font-extrabold uppercase tracking-wider text-amber-700 bg-amber-100/70 px-2.5 py-1 rounded-md">
@@ -82,7 +100,7 @@ export default function ProjectsPage() {
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <button
                   onClick={() => openQuoteModal("Project BOQ Submission")}
-                  className="px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-md active:scale-95"
+                  className="px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-md active:scale-95 cta-shine"
                 >
                   Submit Project Requirement
                 </button>
@@ -122,7 +140,7 @@ export default function ProjectsPage() {
               </ul>
             </div>
           </div>
-        </div>
+        </motion.div>
 
       </div>
     </div>
