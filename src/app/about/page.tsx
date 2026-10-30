@@ -7,6 +7,8 @@ import { motion } from "framer-motion";
 import { Zap, Factory, ShieldCheck, Sun, Layers, ArrowRight, Phone, MessageCircle } from "lucide-react";
 import { COMPANY_INFO, TARGET_CUSTOMERS } from "@/lib/constants";
 import { useQuoteModal } from "@/context/QuoteModalContext";
+import VerticalProcessTimeline from "@/components/about/VerticalProcessTimeline";
+import MilestoneJourney from "@/components/about/MilestoneJourney";
 
 export default function AboutPage() {
   const { openQuoteModal } = useQuoteModal();
@@ -79,7 +81,15 @@ export default function AboutPage() {
             </div>
           </div>
         </motion.div>
+      </div>
 
+      {/* Horizontal Milestone Journey */}
+      <MilestoneJourney />
+
+      {/* Vertical Manufacturing Process Timeline */}
+      <VerticalProcessTimeline />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24">
         {/* What We Stand For */}
         <motion.div 
           initial={{ opacity: 0, y: 24 }}

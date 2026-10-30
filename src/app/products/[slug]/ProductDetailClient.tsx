@@ -57,25 +57,25 @@ export default function ProductDetailClient({ product }: { product: Product }) {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-6 space-y-4"
           >
-            <div className="relative w-full aspect-[4/3] rounded-3xl bg-white border border-slate-200 overflow-hidden shadow-md">
+            <div className="relative w-full aspect-[4/3] rounded-3xl bg-white border border-slate-200 overflow-hidden shadow-md flex items-center justify-center p-4">
               <Image
                 src={activeImage}
                 alt={product.name}
                 fill
                 priority
-                className="object-cover"
+                className="object-contain p-4"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-60" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/10 via-transparent to-transparent opacity-60 pointer-events-none" />
 
               {/* Swiggy veg/non-veg style badge */}
-              <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-md border border-slate-200 shadow-sm">
+              <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-md border border-slate-200 shadow-sm z-10">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
                 <span className="text-xs font-bold text-slate-800">Made in India</span>
               </div>
 
               {product.badge && (
-                <div className="absolute top-3 right-3 px-2.5 py-1 rounded bg-amber-500 text-slate-950 text-xs font-black uppercase tracking-wide shadow-sm">
+                <div className="absolute top-3 right-3 px-2.5 py-1 rounded bg-amber-500 text-slate-950 text-xs font-black uppercase tracking-wide shadow-sm z-10">
                   {product.badge}
                 </div>
               )}
@@ -83,23 +83,32 @@ export default function ProductDetailClient({ product }: { product: Product }) {
 
             {/* Thumbnails */}
             {images.length > 1 && (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 overflow-x-auto pb-2 px-1 snap-x hide-scrollbar">
                 {images.map((img, idx) => (
                   <button
                     key={idx}
                     type="button"
                     onClick={() => setActiveImage(img)}
-                    className={`relative w-20 h-20 rounded-2xl overflow-hidden border-2 transition-all ${
+                    className={`relative w-20 h-20 shrink-0 rounded-2xl overflow-hidden border-2 transition-all snap-start bg-white ${
                       activeImage === img
-                        ? "border-amber-500 shadow-sm scale-105"
+                        ? "border-amber-500 shadow-sm scale-105 z-10"
                         : "border-slate-200 opacity-70 hover:opacity-100"
                     }`}
                   >
-                    <Image src={img} alt={`${product.name} ${idx + 1}`} fill className="object-cover" />
+                    <Image src={img} alt={`${product.name} ${idx + 1}`} fill className="object-contain p-1" />
                   </button>
                 ))}
               </div>
             )}
+            <style jsx>{`
+              .hide-scrollbar::-webkit-scrollbar {
+                display: none;
+              }
+              .hide-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+              }
+            `}</style>
 
             {/* Manufacturer Assurance Box */}
             <div className="p-4 rounded-2xl bg-white border border-slate-200 space-y-1.5 text-xs shadow-xs">

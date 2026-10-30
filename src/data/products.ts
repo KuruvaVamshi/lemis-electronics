@@ -363,6 +363,363 @@ export const PRODUCTS: Product[] = [
     available: true,
     priceLabel: "Contact for Price",
   },
+  {
+    id: "leipl-bn-20w-ac",
+    name: "LEIPL-BN-20W-AC",
+    category: "Other LED Lighting Solutions",
+    categorySlug: "other-led-solutions",
+    slug: "leipl-bn-20w-ac",
+    image: "/products/views/LEIPL-BN-20W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-BN-20W-AC/1.png", "/products/views/LEIPL-BN-20W-AC/2.png", "/products/views/LEIPL-BN-20W-AC/3.png", "/products/views/LEIPL-BN-20W-AC/4.png", "/products/views/LEIPL-BN-20W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-BN-20W-AC with high energy efficiency.",
+    description: "The LEIPL-BN-20W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-BN-20W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-db-06w-ac",
+    name: "LEIPL-DB-06W-AC",
+    category: "LED Down Lights",
+    categorySlug: "led-down-lights",
+    slug: "leipl-db-06w-ac",
+    image: "/products/views/LEIPL-DB-06W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-DB-06W-AC/1.png", "/products/views/LEIPL-DB-06W-AC/2.png", "/products/views/LEIPL-DB-06W-AC/3.png", "/products/views/LEIPL-DB-06W-AC/4.png", "/products/views/LEIPL-DB-06W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-DB-06W-AC with high energy efficiency.",
+    description: "The LEIPL-DB-06W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-DB-06W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-dc-ggl-18w-ac",
+    name: "LEIPL-DC-GGL-18W-AC",
+    category: "LED Down Lights",
+    categorySlug: "led-down-lights",
+    slug: "leipl-dc-ggl-18w-ac",
+    image: "/products/views/LEIPL-DC-GGL-18W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-DC-GGL-18W-AC/1.png", "/products/views/LEIPL-DC-GGL-18W-AC/2.png", "/products/views/LEIPL-DC-GGL-18W-AC/3.png", "/products/views/LEIPL-DC-GGL-18W-AC/4.png", "/products/views/LEIPL-DC-GGL-18W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-DC-GGL-18W-AC with high energy efficiency.",
+    description: "The LEIPL-DC-GGL-18W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-DC-GGL-18W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-dcdl-12w-ac",
+    name: "LEIPL-DCDL-12W-AC",
+    category: "Other LED Lighting Solutions",
+    categorySlug: "other-led-solutions",
+    slug: "leipl-dcdl-12w-ac",
+    image: "/products/views/LEIPL-DCDL-12W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-DCDL-12W-AC/1.png", "/products/views/LEIPL-DCDL-12W-AC/2.png", "/products/views/LEIPL-DCDL-12W-AC/3.png", "/products/views/LEIPL-DCDL-12W-AC/4.png", "/products/views/LEIPL-DCDL-12W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-DCDL-12W-AC with high energy efficiency.",
+    description: "The LEIPL-DCDL-12W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-DCDL-12W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-dcdl-18w-ac",
+    name: "LEIPL-DCDL-18W-AC",
+    category: "Other LED Lighting Solutions",
+    categorySlug: "other-led-solutions",
+    slug: "leipl-dcdl-18w-ac",
+    image: "/products/views/LEIPL-DCDL-18W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-DCDL-18W-AC/1.png", "/products/views/LEIPL-DCDL-18W-AC/2.png", "/products/views/LEIPL-DCDL-18W-AC/3.png", "/products/views/LEIPL-DCDL-18W-AC/4.png", "/products/views/LEIPL-DCDL-18W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-DCDL-18W-AC with high energy efficiency.",
+    description: "The LEIPL-DCDL-18W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-DCDL-18W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-dcsl-120w-ac",
+    name: "LEIPL-DCSL-120W-AC",
+    category: "Other LED Lighting Solutions",
+    categorySlug: "other-led-solutions",
+    slug: "leipl-dcsl-120w-ac",
+    image: "/products/views/LEIPL-DCSL-120W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-DCSL-120W-AC/1.png", "/products/views/LEIPL-DCSL-120W-AC/2.png", "/products/views/LEIPL-DCSL-120W-AC/3.png", "/products/views/LEIPL-DCSL-120W-AC/4.png", "/products/views/LEIPL-DCSL-120W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-DCSL-120W-AC with high energy efficiency.",
+    description: "The LEIPL-DCSL-120W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-DCSL-120W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-dcsl-48w-ac",
+    name: "LEIPL-DCSL-48W-AC",
+    category: "Other LED Lighting Solutions",
+    categorySlug: "other-led-solutions",
+    slug: "leipl-dcsl-48w-ac",
+    image: "/products/views/LEIPL-DCSL-48W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-DCSL-48W-AC/1.png", "/products/views/LEIPL-DCSL-48W-AC/2.png", "/products/views/LEIPL-DCSL-48W-AC/3.png", "/products/views/LEIPL-DCSL-48W-AC/4.png", "/products/views/LEIPL-DCSL-48W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-DCSL-48W-AC with high energy efficiency.",
+    description: "The LEIPL-DCSL-48W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-DCSL-48W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-fl-50w-ac",
+    name: "LEIPL-FL-50W-AC",
+    category: "LED Flood Lights",
+    categorySlug: "led-flood-lights",
+    slug: "leipl-fl-50w-ac",
+    image: "/products/views/LEIPL-FL-50W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-FL-50W-AC/1.png", "/products/views/LEIPL-FL-50W-AC/2.png", "/products/views/LEIPL-FL-50W-AC/3.png", "/products/views/LEIPL-FL-50W-AC/4.png", "/products/views/LEIPL-FL-50W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-FL-50W-AC with high energy efficiency.",
+    description: "The LEIPL-FL-50W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-FL-50W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-ptl-36w-ac",
+    name: "LEIPL-PTL-36W-AC",
+    category: "Other LED Lighting Solutions",
+    categorySlug: "other-led-solutions",
+    slug: "leipl-ptl-36w-ac",
+    image: "/products/views/LEIPL-PTL-36W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-PTL-36W-AC/1.png", "/products/views/LEIPL-PTL-36W-AC/2.png", "/products/views/LEIPL-PTL-36W-AC/3.png", "/products/views/LEIPL-PTL-36W-AC/4.png", "/products/views/LEIPL-PTL-36W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-PTL-36W-AC with high energy efficiency.",
+    description: "The LEIPL-PTL-36W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-PTL-36W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-rdpl-18w-ac",
+    name: "LEIPL-RDPL-18W-AC",
+    category: "Other LED Lighting Solutions",
+    categorySlug: "other-led-solutions",
+    slug: "leipl-rdpl-18w-ac",
+    image: "/products/views/LEIPL-RDPL-18W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-RDPL-18W-AC/1.png", "/products/views/LEIPL-RDPL-18W-AC/2.png", "/products/views/LEIPL-RDPL-18W-AC/3.png", "/products/views/LEIPL-RDPL-18W-AC/4.png", "/products/views/LEIPL-RDPL-18W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-RDPL-18W-AC with high energy efficiency.",
+    description: "The LEIPL-RDPL-18W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-RDPL-18W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-smcl-42w-ac",
+    name: "LEIPL-SMCL-42W-AC",
+    category: "Other LED Lighting Solutions",
+    categorySlug: "other-led-solutions",
+    slug: "leipl-smcl-42w-ac",
+    image: "/products/views/LEIPL-SMCL-42W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-SMCL-42W-AC/1.png", "/products/views/LEIPL-SMCL-42W-AC/2.png", "/products/views/LEIPL-SMCL-42W-AC/3.png", "/products/views/LEIPL-SMCL-42W-AC/4.png", "/products/views/LEIPL-SMCL-42W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-SMCL-42W-AC with high energy efficiency.",
+    description: "The LEIPL-SMCL-42W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-SMCL-42W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-smdl-24w-ac",
+    name: "LEIPL-SMDL-24W-AC",
+    category: "Other LED Lighting Solutions",
+    categorySlug: "other-led-solutions",
+    slug: "leipl-smdl-24w-ac",
+    image: "/products/views/LEIPL-SMDL-24W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-SMDL-24W-AC/1.png", "/products/views/LEIPL-SMDL-24W-AC/2.png", "/products/views/LEIPL-SMDL-24W-AC/3.png", "/products/views/LEIPL-SMDL-24W-AC/4.png", "/products/views/LEIPL-SMDL-24W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-SMDL-24W-AC with high energy efficiency.",
+    description: "The LEIPL-SMDL-24W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-SMDL-24W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-smdl-60w-ac",
+    name: "LEIPL-SMDL-60W-AC",
+    category: "Other LED Lighting Solutions",
+    categorySlug: "other-led-solutions",
+    slug: "leipl-smdl-60w-ac",
+    image: "/products/views/LEIPL-SMDL-60W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-SMDL-60W-AC/1.png", "/products/views/LEIPL-SMDL-60W-AC/2.png", "/products/views/LEIPL-SMDL-60W-AC/3.png", "/products/views/LEIPL-SMDL-60W-AC/4.png", "/products/views/LEIPL-SMDL-60W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-SMDL-60W-AC with high energy efficiency.",
+    description: "The LEIPL-SMDL-60W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-SMDL-60W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-spl-18w-ac",
+    name: "LEIPL-SPL-18W-AC",
+    category: "LED Down Lights",
+    categorySlug: "led-down-lights",
+    slug: "leipl-spl-18w-ac",
+    image: "/products/views/LEIPL-SPL-18W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-SPL-18W-AC/1.png", "/products/views/LEIPL-SPL-18W-AC/2.png", "/products/views/LEIPL-SPL-18W-AC/3.png", "/products/views/LEIPL-SPL-18W-AC/4.png", "/products/views/LEIPL-SPL-18W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-SPL-18W-AC with high energy efficiency.",
+    description: "The LEIPL-SPL-18W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-SPL-18W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-ssdl-12w-ac",
+    name: "LEIPL-SSDL-12W-AC",
+    category: "Other LED Lighting Solutions",
+    categorySlug: "other-led-solutions",
+    slug: "leipl-ssdl-12w-ac",
+    image: "/products/views/LEIPL-SSDL-12W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-SSDL-12W-AC/1.png", "/products/views/LEIPL-SSDL-12W-AC/2.png", "/products/views/LEIPL-SSDL-12W-AC/3.png", "/products/views/LEIPL-SSDL-12W-AC/4.png", "/products/views/LEIPL-SSDL-12W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-SSDL-12W-AC with high energy efficiency.",
+    description: "The LEIPL-SSDL-12W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-SSDL-12W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-ssdl-18w-ac",
+    name: "LEIPL-SSDL-18W-AC",
+    category: "Other LED Lighting Solutions",
+    categorySlug: "other-led-solutions",
+    slug: "leipl-ssdl-18w-ac",
+    image: "/products/views/LEIPL-SSDL-18W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-SSDL-18W-AC/1.png", "/products/views/LEIPL-SSDL-18W-AC/2.png", "/products/views/LEIPL-SSDL-18W-AC/3.png", "/products/views/LEIPL-SSDL-18W-AC/4.png", "/products/views/LEIPL-SSDL-18W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-SSDL-18W-AC with high energy efficiency.",
+    description: "The LEIPL-SSDL-18W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-SSDL-18W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
+  {
+    id: "leipl-wl-30w-ac",
+    name: "LEIPL-WL-30W-AC",
+    category: "Other LED Lighting Solutions",
+    categorySlug: "other-led-solutions",
+    slug: "leipl-wl-30w-ac",
+    image: "/products/views/LEIPL-WL-30W-AC/1.png",
+    galleryImages: ["/products/views/LEIPL-WL-30W-AC/1.png", "/products/views/LEIPL-WL-30W-AC/2.png", "/products/views/LEIPL-WL-30W-AC/3.png", "/products/views/LEIPL-WL-30W-AC/4.png", "/products/views/LEIPL-WL-30W-AC/5.png"],
+    shortDesc: "Premium multi-view product model LEIPL-WL-30W-AC with high energy efficiency.",
+    description: "The LEIPL-WL-30W-AC offers unparalleled performance and reliability. Featuring an advanced multi-view gallery presentation to help you visualize every angle before placing your order.",
+    specifications: {
+      "Model": "LEIPL-WL-30W-AC",
+      "Input Type": "AC",
+      "Quality": "100% Factory Tested"
+    },
+    applications: ["Commercial", "Industrial", "Residential"],
+    featured: true,
+    available: true,
+    priceLabel: "Contact for Price",
+    badge: "New Multi-View"
+  },
 ];
 
 export const PRODUCT_CATEGORIES = [

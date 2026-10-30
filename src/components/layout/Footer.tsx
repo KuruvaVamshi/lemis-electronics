@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Zap, Phone, Mail, MapPin, MessageCircle, ArrowUpRight } from "lucide-react";
+import { Zap, Phone, Mail, MapPin, MessageCircle, ArrowUpRight, Instagram, Facebook } from "lucide-react";
 import { motion } from "framer-motion";
 import { COMPANY_INFO } from "@/lib/constants";
 import { PRODUCT_CATEGORIES } from "@/data/products";
@@ -94,6 +94,28 @@ export default function Footer() {
               <span className="inline-block text-[11px] font-bold text-sky-400 bg-sky-950/60 border border-sky-500/30 px-3 py-1 rounded-full">
                 Bulk Order Supplier
               </span>
+            </div>
+
+            {/* Social Links */}
+            <div className="pt-4 flex items-center gap-3">
+              <a
+                href="https://www.facebook.com/profile.php?id=61594972089258"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/5 border border-amber-500/30 text-amber-400 flex items-center justify-center transition-all duration-300 hover:bg-amber-500 hover:text-slate-900 hover:-translate-y-1"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.instagram.com/lemis_electronics/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white/5 border border-amber-500/30 text-amber-400 flex items-center justify-center transition-all duration-300 hover:bg-amber-500 hover:text-slate-900 hover:-translate-y-1"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
             </div>
           </motion.div>
 

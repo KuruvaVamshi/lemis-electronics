@@ -1,137 +1,188 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ShieldCheck, ArrowRight, MessageCircle, Phone, Sparkles, Zap, ChevronRight, Sun, Moon } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ShieldCheck,
+  ArrowRight,
+  MessageCircle,
+  Phone,
+  Zap,
+  ChevronRight,
+  Sun,
+  Moon,
+  Factory,
+  Sparkles,
+  Award,
+  Layers,
+} from "lucide-react";
 import { useQuoteModal } from "@/context/QuoteModalContext";
 import { COMPANY_INFO } from "@/lib/constants";
 import { PRODUCT_CATEGORIES } from "@/data/products";
 import MagneticButton from "@/components/ui/MagneticButton";
 
+/* ─── Hero Showcase Products with Verified HD Images ─── */
+const HERO_SHOWCASE_PRODUCTS = [
+  {
+    id: "industrial",
+    tabLabel: "Industrial High Bay & Flood",
+    title: "Heavy-Duty Industrial LED Luminaires",
+    subtitle: "High Bay, Floodlights & Bulkheads for factories, plants & warehouses.",
+    image: "/advertising/architectural_floodlight.jpg",
+    specs: "50W – 500W • IP66 Die-Cast • 140 lm/W",
+    badge: "Industrial Grade",
+    tagline: "Die-Cast Heat Dissipation",
+  },
+  {
+    id: "solar",
+    tabLabel: "Solar Highway & Street",
+    title: "All-in-One Solar Street Lighting",
+    subtitle: "Integrated LiFePO4 battery, mono solar panel & intelligent dusk-to-dawn sensors.",
+    image: "/advertising/cobra_head_street_light.jpg",
+    specs: "15W – 120W • 3 Days Autonomy • Auto-Dimming",
+    badge: "Eco Solar",
+    tagline: "Zero Electricity Bills",
+  },
+  {
+    id: "architectural",
+    tabLabel: "Architectural & Post-Top",
+    title: "Architectural Post-Top & Facade Lighting",
+    subtitle: "Luxury estate poles, landscape bollards and optical facade luminaires.",
+    image: "/advertising/modern-lyre-architectural-post.jpg",
+    specs: "Heritage & Modern • Anti-Glare Optics • 5-Yr Life",
+    badge: "Architectural",
+    tagline: "Premium Aesthetics",
+  },
+];
+
 export default function HeroSection() {
   const { openQuoteModal } = useQuoteModal();
   const [activeLightingMode, setActiveLightingMode] = useState<"cool" | "warm">("cool");
-  const imageRef = React.useRef<HTMLImageElement>(null);
+  const [selectedProductIdx, setSelectedProductIdx] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
-  React.useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    
-    if (imageRef.current) {
-      gsap.to(imageRef.current, {
-        y: "20%",
-        ease: "none",
-        scrollTrigger: {
-          trigger: imageRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-    }
-  }, []);
+  const activeProduct = HERO_SHOWCASE_PRODUCTS[selectedProductIdx];
+
+  // Auto-cycle through the 3 hero showcase images smoothly every 6s unless paused
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setSelectedProductIdx((prev) => (prev + 1) % HERO_SHOWCASE_PRODUCTS.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [isPaused]);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-amber-50/60 via-white to-slate-50/80 pt-6 pb-12 lg:pt-14 lg:pb-20 border-b border-slate-200">
-      
-      {/* Subtle Warm Lighting Glow behind header — reactively shifts with Lighting Mode */}
-      <div 
-        aria-hidden="true" 
-        className={`pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[450px] blur-3xl opacity-75 transition-all duration-700 ${
+    <section className="relative overflow-hidden bg-gradient-to-b from-amber-50/50 via-white to-slate-50/80 pt-6 pb-12 lg:pt-12 lg:pb-16 border-b border-slate-200">
+      {/* ─── Ambient Lighting Radial Aura (Reactively shifts with CCT mode) ─── */}
+      <div
+        aria-hidden="true"
+        className={`pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[850px] h-[500px] blur-[120px] opacity-70 transition-all duration-700 z-0 ${
           activeLightingMode === "warm"
-            ? "bg-gradient-to-b from-amber-300/50 via-amber-200/30 to-transparent"
-            : "bg-gradient-to-b from-sky-200/50 via-amber-100/30 to-transparent"
-        }`} 
+            ? "bg-gradient-to-b from-amber-300/40 via-amber-200/20 to-transparent"
+            : "bg-gradient-to-b from-sky-200/40 via-amber-100/20 to-transparent"
+        }`}
+      />
+
+      {/* Subtle Technical Pattern Grid */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 opacity-40"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 1px 1px, rgba(203, 213, 225, 0.4) 1px, transparent 0)",
+          backgroundSize: "32px 32px",
+        }}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Main Hero Grid */}
+        {/* Main 2-Column Responsive Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Left Column: Heading & CTAs */}
-          <motion.div 
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } }
-            }}
-            className="lg:col-span-7 space-y-5 sm:space-y-7 text-center lg:text-left"
+          {/* ═══════════════════════════════════════════════════
+              LEFT COLUMN: HERO CONTENT & HIGH-CONVERSION VALUE
+          ═══════════════════════════════════════════════════ */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 space-y-6 text-center lg:text-left"
           >
-            
-            {/* Manufacturing Tag Badge */}
-            <motion.div 
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-100/80 border border-amber-300/80 text-amber-900 text-xs font-bold uppercase tracking-wider shadow-sm"
-            >
-              <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse" />
+            {/* Direct Factory Verified Badge */}
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/80 text-amber-900 text-xs font-bold uppercase tracking-wider shadow-xs">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-600" />
+              </span>
               <span>Direct Manufacturer • LED & Solar Lights</span>
-            </motion.div>
+              <span className="hidden sm:inline-block text-amber-400">•</span>
+              <span className="hidden sm:inline-block text-slate-500 font-semibold lowercase">
+                Hyderabad, India
+              </span>
+            </div>
 
-            {/* Main Headline (Staggered Word Reveal) */}
-            <h1 className="text-4xl sm:text-5xl lg:text-5xl xl:text-[4rem] font-black text-slate-900 font-heading tracking-tight leading-[1.05] overflow-hidden">
-              {"Powering Spaces with Reliable LED & Solar Lighting".split(" ").map((word, idx) => (
-                <motion.span
-                  key={idx}
-                  variants={{
-                    hidden: { y: "100%", opacity: 0, rotate: 5 },
-                    visible: { y: "0%", opacity: 1, rotate: 0 }
-                  }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="inline-block mr-[0.3em] pb-1"
-                >
-                  {word === "Reliable" || word === "LED" || word === "&" || word === "Solar" ? (
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700">
-                      {word}
-                    </span>
-                  ) : (
-                    word
-                  )}
-                </motion.span>
-              ))}
-            </h1>
+            {/* Brand Title & Main Headline */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-center lg:justify-start gap-2">
+                <span className="text-xs font-black uppercase tracking-[0.3em] text-amber-600 font-heading">
+                  LEMIS ELECTRONICS
+                </span>
+                <span className="w-8 h-[1px] bg-amber-400" />
+              </div>
+              <h1 className="text-3xl sm:text-5xl lg:text-5xl xl:text-[3.75rem] font-black text-slate-900 font-heading tracking-tight leading-[1.08]">
+                Powering Spaces with{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700">
+                  Precision LED
+                </span>{" "}
+                & Solar Lighting
+              </h1>
+            </div>
 
-            {/* Subheading */}
-            <motion.p 
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal"
-            >
-              Manufacturer of LED and solar lighting solutions for residential, commercial, industrial and large-scale projects. Heavy-duty die-cast housings, high lumen efficiency, and dependable performance.
-            </motion.p>
+            {/* Subheading & Manufacturing Strengths */}
+            <p className="text-sm sm:text-base lg:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+              Direct OEM manufacturing for industrial plants, infrastructure roads, commercial
+              campuses, and residential developments. Heavy-duty die-cast aluminium housings,
+              high-lumen efficiency (140+ lm/W), and direct factory pricing.
+            </p>
 
-            {/* Quick Action CTAs with MagneticButton on Desktop */}
-            <motion.div 
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-1"
-            >
-              {/* Primary: Get a Quote (Magnetic Spring on Desktop fine-pointer) */}
+            {/* Feature Pills */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-1 text-left">
+              <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-xs">
+                <Factory className="w-4 h-4 text-amber-600 shrink-0" />
+                <span className="text-xs font-bold text-slate-800">Direct Factory Rates</span>
+              </div>
+              <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-xs">
+                <Award className="w-4 h-4 text-amber-600 shrink-0" />
+                <span className="text-xs font-bold text-slate-800">High Lumen (140+ lm/W)</span>
+              </div>
+              <div className="col-span-2 sm:col-span-1 flex items-center gap-2 p-2.5 rounded-xl bg-white border border-slate-200/80 shadow-xs">
+                <Layers className="w-4 h-4 text-amber-600 shrink-0" />
+                <span className="text-xs font-bold text-slate-800">IP66 Heavy Die-Cast</span>
+              </div>
+            </div>
+
+            {/* Quick Action CTAs */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-2">
+              {/* Primary: Get a Quote with Magnetic Spring */}
               <MagneticButton
                 onClick={() => openQuoteModal()}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-sm sm:text-base shadow-lg shadow-amber-500/25 active:scale-95 group gap-2 cta-shine"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-sm sm:text-base shadow-md shadow-amber-500/20 active:scale-95 group gap-2 cta-shine"
               >
-                <span>Get a Quote</span>
+                <span>Request Factory Quotation</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </MagneticButton>
 
               {/* Secondary: WhatsApp */}
               <a
-                href={`https://wa.me/${COMPANY_INFO.whatsappNumber}?text=Hello%20Lemis%20Electronics%2C%20I%20have%20an%20enquiry%20regarding%20LED%20lighting%20supply.`}
+                href={`https://wa.me/${COMPANY_INFO.whatsappNumber}?text=Hello%20Lemis%20Electronics%2C%20I%20have%20an%20enquiry%20regarding%20bulk%20LED%20lighting%20supply.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm sm:text-base shadow-md transition-all duration-200 active:scale-95"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm sm:text-base shadow-sm transition-all duration-200 active:scale-95"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>WhatsApp Enquiry</span>
+                <span>WhatsApp Supply</span>
               </a>
 
               {/* Tertiary: Call */}
@@ -142,18 +193,13 @@ export default function HeroSection() {
                 <Phone className="w-3.5 h-3.5 text-amber-600" />
                 <span>Call Factory: {COMPANY_INFO.displayPhone}</span>
               </a>
-            </motion.div>
+            </div>
 
             {/* Trust Points */}
-            <motion.div 
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="pt-3 border-t border-slate-200/80 flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 text-xs text-slate-600 font-medium"
-            >
+            <div className="pt-3 border-t border-slate-200/80 flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 text-xs text-slate-600 font-medium">
               <span className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                Direct Manufacturer
+                Direct OEM Manufacturer
               </span>
               <span className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
@@ -163,20 +209,42 @@ export default function HeroSection() {
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 Made in India
               </span>
-            </motion.div>
+            </div>
           </motion.div>
 
-          {/* Right Column: Hero Visual Product Banner */}
-          <motion.div 
-            initial={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)", opacity: 0 }}
-            animate={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", opacity: 1 }}
-            transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1], delay: 0.3 }}
+          {/* ═══════════════════════════════════════════════════
+              RIGHT COLUMN: INTERACTIVE PRODUCT SHOWCASE & CCT SIMULATOR
+          ═══════════════════════════════════════════════════ */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
           >
-            <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-xl bg-white">
+            {/* Product Category Selector Tabs */}
+            <div className="flex items-center gap-1 mb-2 bg-slate-100 p-1 rounded-xl border border-slate-200 overflow-x-auto no-scrollbar">
+              {HERO_SHOWCASE_PRODUCTS.map((prod, idx) => (
+                <button
+                  key={prod.id}
+                  onClick={() => setSelectedProductIdx(idx)}
+                  className={`flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap ${
+                    selectedProductIdx === idx
+                      ? "bg-white text-slate-900 shadow-sm border border-slate-200"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  {prod.tabLabel.split(" ")[0]} Light
+                </button>
+              ))}
+            </div>
+
+            {/* Showcase Card Container */}
+            <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-xl bg-white group">
               
-              {/* Interactive Lighting Spectrum Mode Switcher */}
-              <div className="absolute top-3 right-3 z-20 flex items-center gap-1 bg-white/95 backdrop-blur-md p-1 rounded-xl border border-slate-200 shadow-md">
+              {/* Interactive Lighting Spectrum Mode Switcher (6500K Cool vs 3000K Warm) */}
+              <div className="absolute top-3 right-3 z-30 flex items-center gap-1 bg-white/95 backdrop-blur-md p-1 rounded-xl border border-slate-200 shadow-md">
                 <button
                   type="button"
                   onClick={() => setActiveLightingMode("cool")}
@@ -196,7 +264,7 @@ export default function HeroSection() {
                   onClick={() => setActiveLightingMode("warm")}
                   className={`px-2.5 py-1 rounded-lg text-[10px] font-bold flex items-center gap-1 transition-all ${
                     activeLightingMode === "warm"
-                      ? "bg-amber-500 text-slate-950 shadow-xs"
+                      ? "bg-amber-500 text-slate-950 shadow-xs font-black"
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                   title="Simulate 3000K Warm Golden Ambience"
@@ -206,40 +274,75 @@ export default function HeroSection() {
                 </button>
               </div>
 
-              <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] overflow-hidden bg-white">
-                <Image
-                  ref={imageRef}
-                  src="/products/hero-generated.jpg"
-                  alt="Industrial LED High Bay Lighting"
-                  fill
-                  priority
-                  className="object-cover animate-[heroKenBurns_20s_ease-in-out_infinite_alternate]"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-
-                {/* Simulated Lighting Color Wash Overlay based on active mode */}
-                <div 
-                  className={`absolute inset-0 transition-opacity duration-500 pointer-events-none mix-blend-overlay ${
-                    activeLightingMode === "warm"
-                      ? "bg-gradient-to-t from-amber-100/80 via-amber-50/40 to-transparent opacity-60"
-                      : "bg-gradient-to-t from-sky-100/80 via-sky-50/40 to-transparent opacity-50"
-                  }`} 
-                />
+              {/* Tag Badge on Image Top-Left */}
+              <div className="absolute top-3 left-3 z-30 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold shadow-md">
+                <Sparkles className="w-3 h-3 text-amber-400" />
+                <span>{activeProduct.badge}</span>
               </div>
 
-              {/* Floating Bottom Card on Image */}
-              <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 shadow-lg flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-700 block">
-                    Industrial & Commercial Range
+              {/* Product Visual Container with Smooth Transition */}
+              <div className="relative w-full aspect-[4/3] sm:aspect-[16/11] overflow-hidden bg-slate-950">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeProduct.id}
+                    initial={{ opacity: 0, scale: 1.04 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={activeProduct.image}
+                      alt={activeProduct.title}
+                      fill
+                      priority
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* Simulated CCT Color Wash Overlay */}
+                <div
+                  className={`absolute inset-0 transition-opacity duration-500 pointer-events-none mix-blend-color-dodge ${
+                    activeLightingMode === "warm"
+                      ? "bg-gradient-to-t from-amber-500/35 via-amber-400/15 to-transparent opacity-85"
+                      : "bg-gradient-to-t from-sky-400/30 via-cyan-300/10 to-transparent opacity-70"
+                  }`}
+                />
+
+                {/* Ambient vignette shadow for depth */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 pointer-events-none" />
+
+                {/* Overlay Text Inside Image Bottom */}
+                <div className="absolute bottom-3 left-3 right-3 z-20 flex items-end justify-between text-white">
+                  <div>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 block">
+                      {activeProduct.tagline}
+                    </span>
+                    <span className="text-xs sm:text-sm font-bold text-white block">
+                      {activeProduct.specs}
+                    </span>
+                  </div>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-white font-medium">
+                    {selectedProductIdx + 1} / {HERO_SHOWCASE_PRODUCTS.length}
                   </span>
-                  <p className="text-slate-900 text-xs sm:text-sm font-bold">
-                    Flood • High Bay • Solar & Street Lights
+                </div>
+              </div>
+
+              {/* Bottom Card Footer Details */}
+              <div className="p-4 bg-white border-t border-slate-100 flex items-center justify-between">
+                <div>
+                  <h3 className="text-slate-900 text-xs sm:text-sm font-bold leading-tight">
+                    {activeProduct.title}
+                  </h3>
+                  <p className="text-[11px] text-slate-500 mt-0.5 line-clamp-1">
+                    {activeProduct.subtitle}
                   </p>
                 </div>
                 <button
                   onClick={() => openQuoteModal()}
-                  className="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-black transition-colors shadow-sm"
+                  className="shrink-0 px-3.5 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-black transition-colors shadow-xs active:scale-95 ml-3"
                 >
                   Quick Quote
                 </button>
@@ -249,18 +352,20 @@ export default function HeroSection() {
 
         </div>
 
-        {/* SWIGGY / ZOMATO STYLE: Quick Category Rail for Mobile & Fast Browsing */}
+        {/* ═══════════════════════════════════════════════════
+            BOTTOM SECTION: QUICK CATEGORY RAIL FOR FAST BROWSING
+        ═══════════════════════════════════════════════════ */}
         <div className="mt-10 pt-6 border-t border-slate-200">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
               <Zap className="w-4 h-4 text-amber-600" />
-              <span>Explore Categories</span>
+              <span>Explore Product Categories</span>
             </h2>
             <Link
               href="/products"
               className="text-xs font-bold text-amber-700 hover:text-amber-800 flex items-center gap-0.5"
             >
-              <span>View All</span>
+              <span>View All Products</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -271,7 +376,7 @@ export default function HeroSection() {
               <Link
                 key={cat.slug}
                 href={`/products#${cat.slug}`}
-                className="flex-shrink-0 flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-white border border-slate-200 hover:border-amber-400 hover:shadow-sm transition-all group"
+                className="flex-shrink-0 flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-white border border-slate-200 hover:border-amber-400 hover:shadow-xs transition-all group"
               >
                 <div className="relative w-8 h-8 rounded-lg overflow-hidden bg-slate-100 shrink-0">
                   <Image src={cat.image} alt={cat.name} fill className="object-cover" />
@@ -289,20 +394,15 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Scroll Cue Indicator (Varaahi pattern) */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
-          className="hidden lg:flex flex-col items-center gap-2 mt-10"
-        >
-          <div className="relative w-[2px] h-8 bg-slate-300 overflow-hidden rounded-full">
+        {/* Scroll Cue Indicator */}
+        <div className="hidden lg:flex flex-col items-center gap-2 mt-8">
+          <div className="relative w-[2px] h-7 bg-slate-300 overflow-hidden rounded-full">
             <div className="absolute top-0 left-0 w-full h-full bg-amber-500 animate-[scrollCue_2s_cubic-bezier(0.65,0,0.35,1)_infinite]" />
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-[3px] text-slate-400">
+          <span className="text-[9px] font-bold uppercase tracking-[3px] text-slate-400">
             Scroll to Explore
           </span>
-        </motion.div>
+        </div>
 
       </div>
     </section>
